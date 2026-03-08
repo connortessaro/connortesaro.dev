@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tessaro Partners | B2B Appointment Engine</title>
+    <meta
+      name="description"
+      content="Outbound appointment engine for growth-focused teams. Source, qualify, and book meetings with a governed workflow."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a" aria-hidden="true"></div>
+    <div class="bg-orb orb-b" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top">Tessaro Partners</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a
+          href="https://calendly.com/connor-tessaropartners/15-min-meeting"
+          target="_blank"
+          rel="noreferrer"
+          >Book Call</a
+        >
+        <a href="#process">Process</a>
+        <a href="#results">Results</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section reveal">
+        <p class="kicker">B2B Appointment Workflow</p>
+        <h1>Turn outbound into a predictable booked-meeting system.</h1>
+        <p class="lead">
+          A local-first outreach engine built for focused execution: strict guardrails,
+          measurable daily throughput, and clear lifecycle tracking from lead to meeting.
+        </p>
+        <div class="hero-actions">
+          <a
+            class="btn btn-primary"
+            href="https://calendly.com/connor-tessaropartners/15-min-meeting"
+            target="_blank"
+            rel="noreferrer"
+            >Book 15-Min Call</a
+          >
+          <a class="btn btn-secondary" href="#contact">Request Callback</a>
+        </div>
+        <div class="stats">
+          <article class="stat-card">
+            <h2>80</h2>
+            <p>agency leads refreshed weekly</p>
+          </article>
+          <article class="stat-card">
+            <h2>250</h2>
+            <p>matched prospects sourced weekly</p>
+          </article>
+          <article class="stat-card">
+            <h2>40/day</h2>
+            <p>daily outreach sprint capacity</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="results" class="section reveal">
+        <div class="section-heading">
+          <p class="kicker">What You Get</p>
+          <h2>Operational clarity, not outreach chaos.</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Governed Send Flow</h3>
+            <p>
+              Fixed pre-send gate order with sender-lock enforcement and approval-only
+              lifecycle transitions.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3>Run-Scoped Throughput</h3>
+            <p>
+              Dated run files maintain clean daily queues while preserving baseline and
+              historical context.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3>Reply Triage System</h3>
+            <p>
+              Safe auto-handling for low-risk categories and review-first routing for
+              nuanced replies.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="process" class="section reveal">
+        <div class="section-heading">
+          <p class="kicker">Workflow</p>
+          <h2>Five stages from source to close.</h2>
+        </div>
+        <ol class="timeline">
+          <li>
+            <span>1</span>
+            <div>
+              <h3>Source + Match</h3>
+              <p>Build and rank agency/prospect pools with weekly coverage targets.</p>
+            </div>
+          </li>
+          <li>
+            <span>2</span>
+            <div>
+              <h3>Quality + Guardrails</h3>
+              <p>Normalize rows and enforce non-negotiable safety checks before drafting.</p>
+            </div>
+          </li>
+          <li>
+            <span>3</span>
+            <div>
+              <h3>Draft + Send</h3>
+              <p>Generate packets and execute controlled daily send quotas.</p>
+            </div>
+          </li>
+          <li>
+            <span>4</span>
+            <div>
+              <h3>Reply Automation</h3>
+              <p>Classify inbound responses and trigger safe auto-actions where appropriate.</p>
+            </div>
+          </li>
+          <li>
+            <span>5</span>
+            <div>
+              <h3>Track + Optimize</h3>
+              <p>Review KPI checkpoints and refine targeting, copy, and pacing.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section id="contact" class="section contact reveal">
+        <div class="section-heading">
+          <p class="kicker">Start</p>
+          <h2>Need a custom plan? Send your details and we’ll follow up.</h2>
+          <p class="lead">
+            Prefer instant scheduling? Book directly on
+            <a href="https://calendly.com/connor-tessaropartners/15-min-meeting" target="_blank" rel="noreferrer"
+              >Calendly</a
+            >.
+          </p>
+        </div>
+        <form id="contact-form" data-endpoint="" novalidate>
+          <label>
+            Name
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Work Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Team Size
+            <input type="text" name="team" required />
+          </label>
+          <label>
+            Current outbound blocker
+            <textarea name="message" rows="4" required></textarea>
+          </label>
+          <button class="btn btn-primary" type="submit">Request Blueprint</button>
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Tessaro Partners. Built for focused operators.</p>
+    </footer>
+
+    <script>
+      window.TP_CONFIG = {
+        calendlyUrl: "https://calendly.com/connor-tessaropartners/15-min-meeting",
+        formEndpoint: ""
+      };
+    </script>
+    <script src="./script.js"></script>
+  </body>
+</html>
