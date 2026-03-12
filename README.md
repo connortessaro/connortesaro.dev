@@ -1,26 +1,36 @@
-# Website Ops Notes
+# Connor Portfolio
 
-## Runtime Config
+Employer-facing portfolio site for Connor Tessaro.
 
-Set these in `index.html` under `window.TP_CONFIG`:
+Built with:
+- Next.js App Router
+- TypeScript
+- Tailwind CSS v4
+- Motion
 
-- `calendlyUrl`: booking link used by primary CTA
-- `formEndpoint`: Google Apps Script web app URL for lead capture
+Base design inspiration:
+- `ibelick/nim` public portfolio starter
 
-Example:
+## Local development
 
-```html
-<script>
-  window.TP_CONFIG = {
-    calendlyUrl: "https://calendly.com/connor-tessaropartners/15-min-meeting",
-    formEndpoint: "https://script.google.com/macros/s/XXX/exec"
-  };
-</script>
+```bash
+npm install
+npm run dev
 ```
 
-## Domain
+Open `http://localhost:3000`.
 
-Use Vercel with:
+## Scripts
 
-- apex `A @ -> 76.76.21.21`
-- `www` `A -> 76.76.21.21`
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+```
+
+## Notes
+
+- Resume download is served from `public/Connor-Tessaro-Resume.pdf`
+- Public GitHub profile used on the site: `https://github.com/connortessaro`
+- LinkedIn is intentionally omitted until the exact public profile URL is confirmed
