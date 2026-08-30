@@ -3,7 +3,7 @@
 
 @layer base {
   :root {
-    --page-bg: #f6f4ef;
+    --page-bg: #f7f6f2;
   }
 
   *,
@@ -20,11 +20,19 @@
 
   body {
     min-height: 100vh;
+    font-family: var(--font-body), 'Segoe UI', sans-serif;
     background:
-      radial-gradient(circle at top left, rgba(151, 197, 178, 0.26), transparent 26%),
-      radial-gradient(circle at top right, rgba(255, 255, 255, 0.85), transparent 24%),
-      linear-gradient(180deg, #faf8f4 0%, #f6f4ef 45%, #f3f1eb 100%);
+      radial-gradient(circle at top left, rgba(146, 189, 172, 0.22), transparent 28%),
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.8), transparent 24%),
+      linear-gradient(180deg, #fbfaf6 0%, #f7f6f2 42%, #f2f1eb 100%);
     color: #111827;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading), 'Avenir Next', sans-serif;
   }
 
   ::selection {

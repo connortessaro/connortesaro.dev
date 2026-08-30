@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist_Mono, Inter_Tight, Sora } from 'next/font/google'
 import './globals.css'
 import { Header } from './header'
 import { Footer } from './footer'
@@ -16,13 +16,18 @@ export const metadata: Metadata = {
     'Connor Tessaro builds production-minded software across full-stack apps, automation systems, and revenue-linked products.',
 }
 
-const geist = Geist({
-  variable: '--font-geist',
+const bodyFont = Inter_Tight({
+  variable: '--font-body',
   subsets: ['latin'],
 })
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
+  subsets: ['latin'],
+})
+
+const headingFont = Sora({
+  variable: '--font-heading',
   subsets: ['latin'],
 })
 
@@ -34,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geist.variable} ${geistMono.variable} bg-[var(--page-bg)] text-zinc-950 antialiased`}
+        className={`${bodyFont.variable} ${headingFont.variable} ${geistMono.variable} bg-[var(--page-bg)] text-zinc-950 antialiased`}
       >
         <a
           href="#content"
@@ -44,7 +49,7 @@ export default function RootLayout({
         </a>
         <div className="min-h-screen">
           <Header />
-          <div className="relative mx-auto w-full max-w-6xl px-4 pb-10 pt-10 sm:px-6">
+          <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 pt-8 sm:px-6 md:pt-10">
             {children}
             <Footer />
           </div>
