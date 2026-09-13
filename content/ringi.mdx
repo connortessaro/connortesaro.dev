@@ -1,0 +1,37 @@
+## A conversation is not yet a decision.
+
+A team can produce a long thread without agreeing on what is actually in dispute. Different people hold different constraints, and the loudest or earliest answer can shape everything that follows.
+
+I built Ringi to give those perspectives a structure. It works inside Slack: gather individual positions, identify the crux, write a brief, and put the recommendation back in front of the people affected.
+
+## The system behind the conversation
+
+Ringi separates the conversation from the decision state. A typed state machine governs the session, while gathering and synthesis handle the language. That separation matters because an eloquent model response should not be enough to move a session into the wrong state.
+
+The implementation includes multi-workspace OAuth installation, stakeholder messaging, reminders, a Postgres database with Drizzle, and Langfuse instrumentation for model cost, latency, and quality. The project also includes model evaluations and fixtures for assessing synthesis.
+
+### Gather before converging
+
+Each stakeholder gets room to state a position independently. The point is to capture the constraints underneath an answer before asking everyone to respond to the same recommendation.
+
+### Make the disagreement explicit
+
+The resulting brief identifies a crux, presents options, and makes a recommendation. A useful brief should let someone recognize their concern and understand what the decision would change.
+
+### Give objections a path
+
+An objection does not disappear into another long thread. It opens a revision round so the recommendation can be reconsidered. The decision workflow records agreement explicitly.
+
+## What I owned
+
+I worked across the product design, conversation state machine, Slack integration, database, and deployment. The most interesting boundary was between flexible language and explicit application state: the conversation can vary, but transitions still need rules.
+
+## A deliberate tradeoff
+
+Ringi keeps the decision with the participants. That makes the interaction more involved than simply generating a summary, but the outcome carries the context of who agreed and what remained contested.
+
+## Where it stands
+
+Ringi is in early access. The public site includes a theater replay, and the implementation supports the end-to-end decision loop. I am not claiming measured adoption or time savings here; the next question is how well the workflow holds up for teams using it on their own decisions.
+
+[Visit Ringi](https://ringi.dev) · [Watch the public theater](https://ringi.dev/theater)

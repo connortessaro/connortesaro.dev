@@ -1,55 +1,73 @@
-import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import './globals.css'
-import { Header } from './header'
-import { Footer } from './footer'
-
+import type { Metadata, Viewport } from 'next';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+import { Navigation, Footer } from '@/components/chrome';
+import { MotionRoot } from '@/components/motion';
+import { site } from '@/content/projects';
+import './globals.css';
+export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
+  title: {
+    default: 'Connor Tessaro — Software, thoughtfully built.',
+    template: '%s — Connor Tessaro',
+  },
+  description: site.description,
+  alternates: { canonical: '/' },
+  robots:
+    process.env.VERCEL_ENV === 'preview'
+      ? { index: false, follow: false }
+      : { index: true, follow: true },
+  openGraph: {
+    title: 'Connor Tessaro',
+    description: site.description,
+    type: 'website',
+    url: '/',
+    siteName: 'Connor Tessaro',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Connor Tessaro',
+    description: site.description,
+    images: ['/opengraph-image'],
+  },
+};
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#f6f4ef',
-}
-
-export const metadata: Metadata = {
-  title: 'Connor Tessaro | Software Engineer',
-  description:
-    'Connor Tessaro builds production-minded software across full-stack apps, automation systems, and revenue-linked products.',
-}
-
-const geist = Geist({
-  variable: '--font-geist',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
-
+  themeColor: '#000000',
+};
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geist.variable} ${geistMono.variable} bg-[var(--page-bg)] text-zinc-950 antialiased`}
-      >
-        <a
-          href="#content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-zinc-950 focus:px-4 focus:py-2 focus:text-white"
-        >
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body>
+        <noscript>
+          <style>{`[data-reveal]{opacity:1;transform:none}`}</style>
+        </noscript>
+        <a href="#main" className="skip">
           Skip to content
         </a>
-        <div className="min-h-screen">
-          <Header />
-          <div className="relative mx-auto w-full max-w-6xl px-4 pb-10 pt-10 sm:px-6">
-            {children}
-            <Footer />
-          </div>
-        </div>
+        <Navigation />
+        {children}
+        <Footer />
+        <MotionRoot />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: site.name,
+              url: site.url,
+              sameAs: [site.github, site.linkedin],
+            }),
+          }}
+        />
       </body>
     </html>
-  )
+  );
 }

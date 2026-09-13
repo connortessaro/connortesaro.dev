@@ -1,0 +1,40 @@
+Connor Tessaro
+Boston, MA | tessaro.c@northeastern.edu | linkedin.com/in/connortessaro | github.com/connortessaro
+
+EDUCATION
+Northeastern University    Expected Graduation: May 2028
+Bachelor of Science in Computer Science, Minor in Mathematics    GPA: 3.61/4.0
+Relevant Coursework: Data Structures and Algorithms, Object-Oriented Design, Database Design, Software Engineering
+
+EXPERIENCE
+Chewy    Jun 2026 – Dec 2026
+Software Engineer Co-op    Boston, MA
+Order Routing Simulation Team | Labor & Capacity Planning Platform
+Reduced labor-planning pipeline runtime by 83% (1 hour to 10 minutes) by optimizing Snowflake SQL queries and migrating batch jobs to scheduled AWS ECS/Kubernetes tasks.
+Automated build and deployment pipelines for Java/Gradle and Python microservices, containerizing apps with Docker and deploying to AWS via Terraform and Jenkins CI/CD.
+Saved a projected 2,700 manager hours annually by building a Next.js dashboard and Python APIs that display throughput forecasts across 12 fulfillment centers.
+Built automated Jenkins CI/CD pipelines to validate data ingestion from Snowflake, S3 data exports, and REST APIs across staging and production environments.
+Cut AWS ECR cloud storage costs by $31.7K annually by cleaning up stale Docker images and automating repository retention policies.
+
+OPEN SOURCE
+Prisma ORM | TypeScript, better-sqlite3 driver adapter    Mar 2026
+Resolved a timestamp parsing bug in Prisma ORM's SQLite adapter (47K+ stars on GitHub) where millisecond dates returned Invalid Date; merged a second PR closing a 5-year-old community request.
+
+PROJECTS
+Ringi | ringi.dev | TypeScript, Slack Bolt, Gemini 2.5 Flash, Drizzle, PostgreSQL, Langfuse    Jun 2026 – Present
+Built a Slack bot for asynchronous team decisions that messages stakeholders directly, manages conversation state, and summarizes team consensus into an actionable brief.
+Tracked LLM cost, latency, and response quality using Langfuse; built multi-workspace OAuth installation, scheduled reminder jobs, and a 14-table PostgreSQL database with Drizzle ORM.
+Evaluated 4 AI models across Gemini, Claude, and GPT on accuracy and cost to select the best model; structured the codebase as a modular Turborepo monorepo.
+Phantom AI | phantom.codes | TypeScript, Next.js, PostgreSQL, Stripe, Vercel AI Gateway    Apr 2026 – Present
+Built an OpenAI-compatible inference gateway with prepaid keys, a dynamic model catalog, and request routing through Vercel AI Gateway.
+Implemented hashed API keys, payment webhooks, and streaming-aware metering with explicit settlement on client disconnect.
+Implemented real-time streaming usage tracking with automatic disconnect handling and token-bucket rate limiting for accurate customer billing.
+Kizuki | github.com/connortessaro/kizuki | JavaScript, Node.js, Model Context Protocol (MCP), Zod, JSONL    Aug 2026 – Present
+Built a local-first developer tool and Model Context Protocol (MCP) server that analyzes meeting transcripts and developer activity into structured markdown knowledge bases.
+Added prompt and skill exports for Claude Code, Codex, Gemini, Cursor, and generic clients, a CLI diagnostic tool, and a Next.js web dashboard.
+
+SKILLS
+Languages: TypeScript, JavaScript, Python, Java, C++, Go, SQL (PostgreSQL, SQLite)
+Frontend & Backend: React, Next.js, Node.js, FastAPI, REST APIs, Microservices, WebSockets, Tailwind CSS
+Cloud & DevOps: AWS (ECS, ECR, S3), Kubernetes (K8s), Docker, Terraform (IaC), Jenkins, CI/CD, Git
+Databases & Architecture: PostgreSQL, Snowflake, Redis, Drizzle ORM, Distributed Systems, Langfuse, OAuth 2.0

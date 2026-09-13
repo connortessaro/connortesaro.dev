@@ -1,0 +1,39 @@
+## A request is more than an API call.
+
+An inference gateway has to connect the API people already know with routing, model availability, payment, and accounting. Streaming makes that relationship particularly interesting: the request can stop being visible to the client before the system has finished accounting for it.
+
+Phantom is an OpenAI-compatible gateway with prepaid keys. Its current implementation routes inference through Vercel AI Gateway and uses PostgreSQL for the application’s data layer.
+
+## The request lifecycle
+
+### Start with a familiar contract
+
+An OpenAI-compatible interface makes the gateway usable with existing clients. Behind it, the application verifies the key and its available budget before routing the request.
+
+### Keep metering attached to the stream
+
+A completed response can report upstream usage. An interrupted response still needs a defined accounting path. Phantom includes streaming usage capture and settlement behavior for disconnects, with estimation as a fallback when final upstream usage is unavailable.
+
+The demonstration above illustrates those two paths. Its example request and receipt are synthetic; it is not making a paid inference call.
+
+### Keep money representable
+
+Billing uses integer micro-USD. The product also includes payment handling, webhook validation, key recovery, and a model catalog informed by the upstream gateway. Those boundaries deserve as much care as the visible chat interface.
+
+## What I owned
+
+I built across the gateway, streaming metering, payment integration, model directory, and product interface. The work includes disconnect handling and the operational checks needed to keep the application’s assumptions aligned with its database and upstream contracts.
+
+## Architecture changes over time
+
+Earlier versions explored confidential-compute backends. The current version uses Vercel AI Gateway. That distinction matters: a historical architectural property should not silently become a promise about today’s product.
+
+The current gateway brings routing and model discovery behind one upstream contract. Changes to that contract are part of what the application needs to track.
+
+## Verification has levels
+
+The project’s feature inventory distinguishes behavior exercised live, behavior covered by tests, and paths that still need end-to-end verification. A route existing in the code is different from a successful funded request passing through production.
+
+That distinction has become part of how I think about product ownership: the interface, the implementation, and the evidence that something works need to stay aligned.
+
+[Explore Phantom](https://phantom.codes) · [Read the API documentation](https://phantom.codes/docs)

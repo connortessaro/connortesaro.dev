@@ -1,0 +1,41 @@
+## A useful memory has to survive new evidence.
+
+Work context is scattered across conversations, project updates, and meeting notes. Keeping a copy of that information is only the beginning. The harder question is whether it still supports the thing you are about to say or do.
+
+Kizuki is a local-first intelligence layer for that problem. It organizes work activity into a Markdown vault and makes the resulting context available to a person and their AI tools through a CLI, MCP server, and dashboard.
+
+## Give the model room to reason. Give writes a contract.
+
+The agent returns a structured payload. Deterministic JavaScript applies the changes. That keeps file writing separate from the model’s reasoning and preserves handwritten notes outside the managed analysis section.
+
+It is a useful boundary: the analysis can change as new evidence arrives, while the mechanics of updating files stay explicit and repeatable.
+
+### Preserve the source
+
+Signals carry source receipts. A warning about a deadline should point to the meeting or update that supports it, so the person reading the warning can inspect the evidence.
+
+### Preserve the history
+
+Append-only JSONL ledgers record signals and captured insights. New evidence can supersede an earlier claim without requiring its history to disappear.
+
+### Check the next statement
+
+Kizuki can compare a proposed update against the vault. If a draft says the release is on schedule and a source records a delay, the useful result is a specific contradiction with a receipt attached.
+
+The demonstration uses an invented release and synthetic meeting note. No internal work material is included.
+
+## What I owned
+
+I built the CLI, vault-update path, source tracking, MCP integration, and web dashboard. The core runtime uses Node.js and JavaScript modules, with TypeScript in the web application and supporting tooling.
+
+## Local files are a product decision
+
+Markdown makes the output inspectable and portable. A user can read it in their editor, keep it under version control, and bring it to a different agent. The tradeoff is that a local-first tool asks more of installation and setup than a fully hosted application.
+
+Kizuki observes and advises. It does not automatically send the proposed update or commit the user to an external action.
+
+## Where it stands
+
+The project is open source under Apache-2.0. The public demo uses synthetic data, and the repository documents the CLI, MCP integration, and deterministic write model.
+
+[Read the source](https://github.com/connortessaro/kizuki) · [Explore the demo](https://demo.kizuki.dev)
