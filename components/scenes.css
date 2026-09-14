@@ -50,17 +50,17 @@
   font-weight: 400;
 }
 .chapter-copy h3 {
-  font-size: clamp(20px, 2.2vw, 30px);
-  line-height: 1.2;
-  letter-spacing: -0.035em;
+  font-size: clamp(17px, 1.7vw, 22px);
+  line-height: 1.35;
+  letter-spacing: -0.025em;
   color: var(--muted);
-  max-width: 420px;
+  max-width: 34ch;
 }
 .chapter-summary {
   font-size: 15px;
   color: var(--muted);
   line-height: 1.75;
-  max-width: 400px;
+  max-width: 46ch;
   margin: 18px 0;
 }
 .chapter-tags {
@@ -118,8 +118,8 @@
   line-height: 1.7;
   color: var(--muted);
   margin: 14px 0 8px;
-  min-height: 38px;
-  max-width: 380px;
+  min-height: 4.6em;
+  max-width: 46ch;
 }
 .replay {
   background: transparent;
@@ -843,8 +843,8 @@
     font-size: 52px;
   }
   .chapter-copy h3 {
-    max-width: 600px;
-    font-size: 26px;
+    max-width: 46ch;
+    font-size: 20px;
   }
   .chapter-summary {
     max-width: 550px;
@@ -858,7 +858,7 @@
   }
   .step-caption {
     min-height: 0;
-    max-width: 600px;
+    max-width: 60ch;
   }
   .chapter-figure {
     width: 100%;
@@ -903,7 +903,7 @@
     font-size: 44px;
   }
   .chapter-copy h3 {
-    font-size: 24px;
+    font-size: 18px;
   }
   .step-buttons {
     display: flex;

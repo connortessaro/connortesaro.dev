@@ -89,9 +89,10 @@
   position: relative;
   display: block;
   font-weight: 600;
-  font-size: clamp(40px, 6.4vw, 96px);
-  line-height: 1.04;
-  letter-spacing: -0.05em;
+  font-size: clamp(26px, 3.4vw, 46px);
+  line-height: 1.22;
+  letter-spacing: -0.035em;
+  max-width: 24ch;
   padding: 40px 120px 56px 0;
   transition: color var(--medium) var(--ease);
 }
@@ -180,7 +181,7 @@
     display: none;
   }
   .hello {
-    font-size: clamp(32px, 8.4vw, 46px);
+    font-size: clamp(22px, 5.6vw, 28px);
     padding: 32px 26px 44px 0;
   }
   .bigArrow {

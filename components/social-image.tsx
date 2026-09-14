@@ -50,7 +50,14 @@ export function socialImage(
           gap: 50,
         }}
       >
-        <span style={{ fontSize: 26, color: accent, maxWidth: 780 }}>
+        <span
+          style={{
+            fontSize: subtitle.length > 70 ? 22 : 26,
+            lineHeight: 1.35,
+            color: accent,
+            maxWidth: 820,
+          }}
+        >
           {subtitle}
         </span>
         <span style={{ fontSize: 16, color: '#a1a1a1' }}>connortesaro.dev</span>

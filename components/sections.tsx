@@ -9,9 +9,11 @@ export function Experience() {
       <div className="shell">
         <div className={s.experienceHeading} data-reveal="">
           <h2 id="experience-heading" className="eyebrow muted">
-            02 — Alongside the independent work
+            02 — Professional and open source
           </h2>
-          <p>Real teams. Real systems. A few contributions.</p>
+          <p>
+            Production systems, delivered on teams that were already running.
+          </p>
         </div>
         <div className={`${s.experienceRow} spotlight`} data-reveal="">
           <div className={s.company}>
@@ -20,9 +22,12 @@ export function Experience() {
           <div>
             <h3>Software Engineer Co-op</h3>
             <p>
-              Working on labor and capacity planning: Snowflake pipelines, AWS
-              infrastructure, and the interfaces that bring forecasts to
-              fulfillment-center teams.
+              I work on labor and capacity planning, spanning the Snowflake
+              pipelines that produce the forecast, the AWS infrastructure the
+              pipelines run on, and the interfaces that carry the resulting
+              numbers to fulfillment-center teams. Rewriting the labor-planning
+              pipeline reduced its runtime from roughly 60 minutes to 10,
+              measured against its scheduled production runs.
             </p>
           </div>
           <div>
@@ -37,10 +42,12 @@ export function Experience() {
             Prisma<span>MAR 2026 · OPEN SOURCE</span>
           </div>
           <div>
-            <h3>Small changes, upstream.</h3>
+            <h3>Contributions to Prisma ORM</h3>
             <p>
-              Fixed millisecond DateTime handling in the SQLite driver adapter
-              with regression coverage, and improved distinct-field
+              I fixed millisecond DateTime handling in the SQLite driver
+              adapter, where values were losing sub-second precision on the
+              round trip, and added regression coverage so the behavior stays
+              pinned. A second change corrected the distinct-field
               documentation.
             </p>
           </div>
@@ -50,7 +57,8 @@ export function Experience() {
               target="_blank"
               rel="noreferrer"
             >
-              #29274 · DateTime fix <span aria-hidden="true">↗</span>
+              #29274 · SQLite DateTime precision{' '}
+              <span aria-hidden="true">↗</span>
             </a>
             <a
               href="https://github.com/prisma/orm/pull/29269"
@@ -73,12 +81,12 @@ export function Experiments() {
     >
       <div className={s.experimentHeading} data-reveal="">
         <div>
-          <span className="eyebrow muted">
-            04 — Following a different thread
-          </span>
-          <h2 id="experiments-heading">A little off the main path.</h2>
+          <span className="eyebrow muted">04 — Exploratory work</span>
+          <h2 id="experiments-heading">
+            Smaller projects, built to answer a single question.
+          </h2>
         </div>
-        <p>Games, music, and things worth understanding.</p>
+        <p>Match data and music, treated as systems worth reading carefully.</p>
       </div>
       <div className={s.experimentGrid}>
         {experiments.map((e) => (

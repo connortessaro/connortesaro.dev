@@ -1,41 +1,41 @@
-## A useful memory has to survive new evidence.
+## Stored context is only useful for as long as it survives new evidence.
 
-Work context is scattered across conversations, project updates, and meeting notes. Keeping a copy of that information is only the beginning. The harder question is whether it still supports the thing you are about to say or do.
+Work context is distributed across conversations, project updates, and meeting notes. Retaining a copy of that information is the straightforward part. The harder question is whether the copy still supports the thing you are about to say or do, and the failure mode is specific: context does not announce that it has expired. It stays confidently available and quietly wrong.
 
-Kizuki is a local-first intelligence layer for that problem. It organizes work activity into a Markdown vault and makes the resulting context available to a person and their AI tools through a CLI, MCP server, and dashboard.
+Kizuki is a local-first intelligence layer built for that problem. It organizes work activity into a Markdown vault on the user's own filesystem and exposes the resulting context to both the person and their AI tools through a CLI, an MCP server, and a dashboard.
 
 ## Give the model room to reason. Give writes a contract.
 
-The agent returns a structured payload. Deterministic JavaScript applies the changes. That keeps file writing separate from the model’s reasoning and preserves handwritten notes outside the managed analysis section.
+The agent returns a structured payload and deterministic JavaScript applies the changes. This keeps file mutation separate from model reasoning and preserves handwritten notes outside the managed analysis section, so a user's own writing is never subject to a generation step.
 
-It is a useful boundary: the analysis can change as new evidence arrives, while the mechanics of updating files stay explicit and repeatable.
+The boundary is deliberate. The analysis is expected to change as new evidence arrives, while the mechanics of updating files stay explicit, inspectable, and repeatable. Those two things need different guarantees, and giving them the same guarantee would weaken the stronger one.
 
 ### Preserve the source
 
-Signals carry source receipts. A warning about a deadline should point to the meeting or update that supports it, so the person reading the warning can inspect the evidence.
+Every signal carries a source receipt. A warning about a deadline points to the meeting or update that produced it, so the person reading the warning can inspect the evidence rather than deciding whether to trust an assertion with no provenance attached.
 
 ### Preserve the history
 
-Append-only JSONL ledgers record signals and captured insights. New evidence can supersede an earlier claim without requiring its history to disappear.
+Append-only JSONL ledgers record signals and captured insights. New evidence supersedes an earlier claim without deleting it, which means the record shows not only what is currently believed but when it changed and what it replaced.
 
 ### Check the next statement
 
-Kizuki can compare a proposed update against the vault. If a draft says the release is on schedule and a source records a delay, the useful result is a specific contradiction with a receipt attached.
+Kizuki compares a proposed update against the vault before it is sent. If a draft states that the release is on schedule and a source records a delay, the useful output is not a general warning but a specific contradiction with the originating receipt attached.
 
-The demonstration uses an invented release and synthetic meeting note. No internal work material is included.
+The demonstration uses an invented release and a synthetic meeting note. No internal work material is included.
 
 ## What I owned
 
-I built the CLI, vault-update path, source tracking, MCP integration, and web dashboard. The core runtime uses Node.js and JavaScript modules, with TypeScript in the web application and supporting tooling.
+I built the CLI, the vault-update path, the source tracking, the MCP integration, and the web dashboard. The core runtime uses Node.js and JavaScript modules, with TypeScript in the web application and supporting tooling.
 
 ## Local files are a product decision
 
-Markdown makes the output inspectable and portable. A user can read it in their editor, keep it under version control, and bring it to a different agent. The tradeoff is that a local-first tool asks more of installation and setup than a fully hosted application.
+Markdown keeps the output inspectable and portable. A user can read it in their editor, keep it under version control, and carry it to a different agent without an export step or a migration path. The cost is real: a local-first tool demands more of installation and setup than a hosted application, and that cost falls entirely on the user at the moment of first contact.
 
-Kizuki observes and advises. It does not automatically send the proposed update or commit the user to an external action.
+Kizuki observes and advises. It does not transmit the proposed update or commit the user to an external action, because a tool that checks your claims should not also be the thing that publishes them.
 
 ## Where it stands
 
-The project is open source under Apache-2.0. The public demo uses synthetic data, and the repository documents the CLI, MCP integration, and deterministic write model.
+The project is open source under Apache-2.0. The public demo uses synthetic data, and the repository documents the CLI, the MCP integration, and the deterministic write model.
 
 [Read the source](https://github.com/connortessaro/kizuki) · [Explore the demo](https://demo.kizuki.dev)

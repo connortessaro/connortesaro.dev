@@ -21,20 +21,21 @@ export const projects: Project[] = [
     number: '01',
     name: 'Ringi',
     category: 'AI × collaboration',
-    headline: 'Good decisions start with being heard.',
+    headline:
+      'A thread records what a team said. It does not record what the team decided.',
     summary:
-      'A Slack agent that gathers individual perspectives, finds the real disagreement, and brings a team to a decision.',
+      'Ringi operates as a structured decision instrument inside Slack. On session initiation, the platform messages each stakeholder independently, capturing their position and the constraints underneath it before anyone sees another participant’s answer, then synthesizes those responses into a brief that names the crux, presents the options, and returns a recommendation to the people the decision affects.',
     contribution:
-      'Product design, conversation state machine, Slack integration, and full-stack implementation.',
+      'I designed the product and built the typed conversation state machine, the multi-workspace Slack OAuth installation, the PostgreSQL persistence layer through Drizzle, and the Langfuse instrumentation covering model cost, latency, and output quality.',
     status: 'Early access',
     accent: '#ff5f7e',
     stack: ['TypeScript', 'Slack Bolt', 'PostgreSQL', 'Drizzle', 'Langfuse'],
     link: 'https://ringi.dev',
-    steps: ['Gather', 'Find the crux', 'Decide'],
+    steps: ['Gather', 'Synthesize', 'Resolve'],
     captions: [
-      'Give each stakeholder room to say what they actually think.',
-      'Separate the disagreement from the conversation around it.',
-      'One brief. A clear recommendation. Everyone has a say.',
+      'Each stakeholder receives a direct message and answers without visibility into the other responses, which captures the constraint underneath a position rather than a reaction to whoever answered first.',
+      'The synthesis pass separates the disagreement from the discussion surrounding it and states the crux as a single contested question with its options attached.',
+      'The brief returns to the affected participants for explicit agreement. An objection opens a revision round rather than a new thread, and the decision record retains who agreed and what remained contested.',
     ],
   },
   {
@@ -42,11 +43,12 @@ export const projects: Project[] = [
     number: '02',
     name: 'Phantom',
     category: 'AI × infrastructure',
-    headline: 'Every request has a story. And a cost.',
+    headline:
+      'A streaming request can stop being visible to the client before the system has finished accounting for it.',
     summary:
-      'An OpenAI-compatible inference gateway with prepaid keys, streaming-aware metering, and a deliberately transparent accounting model.',
+      'Phantom operates as an OpenAI-compatible inference gateway with prepaid keys. The platform verifies the key and its available budget before routing a request through Vercel AI Gateway, captures usage while the response streams rather than after it completes, and settles every request in integer micro-USD against a PostgreSQL ledger — including requests the client abandons mid-stream.',
     contribution:
-      'Gateway implementation, streaming metering, payments, model catalog, and product interface.',
+      'I built the gateway, the streaming usage capture and disconnect settlement path, the Stripe payment integration with webhook validation, the model catalog synchronization against the upstream contract, and the product interface.',
     status: 'Live product',
     accent: '#52a8ff',
     stack: [
@@ -59,9 +61,9 @@ export const projects: Project[] = [
     link: 'https://phantom.codes',
     steps: ['Route', 'Stream', 'Settle'],
     captions: [
-      'A familiar API, a prepaid key, and one place to route inference.',
-      'Keep usage accounting connected to the life of the stream.',
-      'A disconnect still needs an explicit settlement path.',
+      'The request arrives against the OpenAI-compatible contract that existing clients already target. The gateway authenticates the prepaid key and confirms available budget before any upstream call is made.',
+      'Usage accounting stays attached to the stream while tokens are still arriving, because a response that terminates early will never produce a final usage report to reconcile against.',
+      'A completed stream settles against upstream-reported usage. An abandoned stream settles against an estimate, explicitly flagged as such, so that a disconnect resolves to a defined accounting path instead of an unbilled request.',
     ],
   },
   {
@@ -69,21 +71,22 @@ export const projects: Project[] = [
     number: '03',
     name: 'Kizuki',
     category: 'AI × developer tools',
-    headline: 'Context is only useful if you can trust it.',
+    headline:
+      'Stored context is only useful for as long as it survives new evidence.',
     summary:
-      'A local-first intelligence layer that turns scattered work into source-backed context for you and your coding agents.',
+      'Kizuki operates as a local-first intelligence layer that organizes scattered work activity into a Markdown vault on the user’s own filesystem. The agent returns a structured payload and deterministic JavaScript applies the write, which keeps file mutation separate from model reasoning, preserves handwritten notes outside the managed section, and attaches a source receipt to every signal so any claim can be traced back to the meeting or update that supports it.',
     contribution:
-      'CLI, deterministic vault updates, evidence tracking, MCP server, and web dashboard.',
+      'I built the CLI, the deterministic vault-update path, the append-only JSONL source tracking, the MCP server integration, and the web dashboard.',
     status: 'Open source',
     accent: '#f5a623',
     stack: ['Node.js', 'MCP', 'Markdown', 'JSONL', 'Next.js'],
     link: 'https://kizuki.dev',
     source: 'https://github.com/connortessaro/kizuki',
-    steps: ['Capture', 'Check', 'Understand'],
+    steps: ['Capture', 'Check', 'Reconcile'],
     captions: [
-      'Bring a proposed update alongside what the team already knows.',
-      'Spot a contradiction and trace it to the original evidence.',
-      'Revise the update with the source in view. You decide what to send.',
+      'A proposed update arrives alongside the vault record the workspace already holds, so the draft is evaluated against existing evidence rather than in isolation.',
+      'The comparison surfaces a specific contradiction rather than a general warning, and the signal carries the source receipt that produced it.',
+      'The user revises with the evidence in view. Kizuki observes and advises; it does not transmit the update or commit the user to an external action.',
     ],
   },
 ];
@@ -94,14 +97,14 @@ export const site = {
   github: 'https://github.com/connortessaro',
   linkedin: 'https://www.linkedin.com/in/connortessaro',
   description:
-    'Connor Tessaro is a software engineer and Northeastern CS student building tools for team decisions, AI infrastructure, and source-backed work context.',
+    'I am a software engineer and Northeastern computer science student building systems that reduce administrative overhead in team decision-making, inference accounting, and work context verification.',
 };
 export const experiments = [
   {
     name: 'LeagueIQ',
     label: 'Game data → better questions',
     description:
-      'Reading a League of Legends match through its decisions, not just the final scoreboard.',
+      'A match analysis tool that reads a League of Legends game through its decision points — objective contests, rotations, and participation across the timeline — rather than through the final scoreboard.',
     href: 'https://github.com/connortessaro/leagueiq',
     kind: 'timeline',
   },
@@ -109,7 +112,7 @@ export const experiments = [
     name: 'A score for listening',
     label: 'Music → visual language',
     description:
-      'A Python-generated listening map of rhythm, texture, and structure in Le1f’s “Wut”.',
+      'A Python-generated listening map of Le1f’s “Wut”, rendering rhythm, texture, and structural repetition as a single visual score for a music course.',
     href: 'https://github.com/connortessaro/music-visualization',
     kind: 'score',
   },

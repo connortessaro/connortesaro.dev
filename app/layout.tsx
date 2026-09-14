@@ -8,7 +8,7 @@ import './globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: 'Connor Tessaro — Software, thoughtfully built.',
+    default: 'Connor Tessaro — Software engineer, Northeastern University',
     template: '%s — Connor Tessaro',
   },
   description: site.description,

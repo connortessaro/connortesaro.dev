@@ -12,7 +12,7 @@ export default async function Image({
   const project = projects.find((p) => p.slug === slug);
   return socialImage(
     project?.name ?? 'Selected work',
-    project?.headline ?? 'Software, thoughtfully built.',
+    project?.headline ?? 'Selected work by Connor Tessaro.',
     project?.accent,
   );
 }

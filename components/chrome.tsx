@@ -30,14 +30,14 @@ export function Footer() {
       <div className="shell">
         <div className={s.top}>
           <p className="eyebrow muted">
-            A conversation is a good place to start.
+            Open to engineering roles and collaboration
           </p>
-          <span className="eyebrow muted">Boston, MA · Open to good ideas</span>
+          <span className="eyebrow muted">Boston, MA · Northeastern 2028</span>
         </div>
         <a href={`mailto:${site.email}`} className={s.hello}>
-          Let’s make
+          If you are building something
           <br />
-          <span>something matter.</span>
+          <span>in this territory, I would like to hear about it.</span>
           <span className={s.bigArrow} aria-hidden="true">
             ↗
           </span>

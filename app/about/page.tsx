@@ -5,7 +5,7 @@ import s from '@/components/home.module.css';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'A little about Connor Tessaro: Northeastern CS, engineering at Chewy, and independent projects in AI, games, and visualization.',
+    'I am a computer science student at Northeastern University and a software engineering co-op at Chewy, building systems for decision capture, inference accounting, and context verification.',
   alternates: { canonical: '/about' },
 };
 export default function AboutPage() {
@@ -13,23 +13,28 @@ export default function AboutPage() {
     <main id="main">
       <div className="shell">
         <header className="route-intro">
-          <span className="eyebrow muted">The person behind the projects</span>
+          <span className="eyebrow muted">About</span>
           <h1>
-            Hi. I’m Connor.
-            <br />I follow the questions.
+            I build systems for the places where information degrades in
+            transit.
           </h1>
         </header>
         <article className={s.aboutPage}>
           <p>
-            I’m a computer science student at Northeastern University, with a
-            mathematics minor, and a software engineering co-op at Chewy in
-            Boston.
+            I am a computer science student at Northeastern University with a
+            mathematics minor, currently on co-op as a software engineer at
+            Chewy in Boston. My work concentrates on a specific class of
+            problem: the points where information loses fidelity as it moves
+            between people and systems, and where the loss is invisible until
+            something downstream depends on it.
           </p>
           <p>
-            I like problems where understanding the system is half the work. How
-            does a team find the real disagreement? What happens to billing when
-            a stream disconnects? How do you know whether the context an agent
-            uses is still true?
+            Three questions have held my attention long enough to become
+            projects. How does a distributed team locate the disagreement its
+            thread never made explicit? What is the correct accounting path when
+            a billable stream terminates before it reports final usage? How does
+            a person, or an agent acting for them, establish that stored context
+            is still true before relying on it?
           </p>
           <p>
             Those questions became{' '}
@@ -44,29 +49,41 @@ export default function AboutPage() {
             <Link href="/work/kizuki" className="text-link">
               Kizuki
             </Link>
-            . Each has a different interface, but they share a concern: making
-            complicated work more understandable.
+            . The interfaces differ — a Slack agent, an inference gateway, a
+            local-first CLI — but each addresses the same structural problem:
+            preserving the evidence behind a claim so the claim remains
+            checkable after the moment that produced it has passed.
           </p>
-          <h2>Building with the whole system in view.</h2>
+          <h2>Working across the full depth of a system.</h2>
           <p>
-            At Chewy, I work on labor and capacity planning, from data pipelines
-            and cloud infrastructure to the interfaces that bring forecasts to
-            fulfillment teams. In open source, I’ve contributed a DateTime fix
-            and documentation improvements to Prisma.
+            At Chewy I work on labor and capacity planning, spanning the
+            Snowflake pipelines that generate the forecast, the AWS
+            infrastructure they run on, and the interfaces that deliver the
+            output to fulfillment teams. Rewriting the labor-planning pipeline
+            reduced its runtime from roughly 60 minutes to 10. In open source I
+            have contributed to Prisma ORM, fixing millisecond DateTime
+            precision loss in the SQLite driver adapter with regression coverage
+            attached, alongside a documentation correction.
           </p>
           <p>
-            I enjoy the movement between those layers. An interface raises
-            questions about the data. A failure reveals something about the
-            model. A small change in the workflow can make the whole product
-            clearer.
+            I work deliberately across those layers, because the information
+            each one produces is difficult to obtain from the others. An
+            interface exposes assumptions the schema left implicit. A production
+            failure describes the data model more precisely than the data model
+            does. A change in the workflow can eliminate a problem that appeared
+            to require an engineering solution.
           </p>
-          <h2>There are other threads, too.</h2>
+          <h2>Exploratory work.</h2>
           <p>
-            I’ve explored League of Legends match timelines through LeagueIQ,
-            looking at decisions and participation over the course of a game.
-            For a music course, I used Python to create a visual listening score
-            for Le1f’s “Wut”. Different inputs, the same interest in finding a
-            useful way to see them.
+            LeagueIQ reads a League of Legends match through its decision points
+            — objective contests, rotations, and participation across the
+            timeline — on the premise that the scoreboard records the outcome
+            while the timeline records the reasoning. For a music course I used
+            Python to generate a visual listening score for Le1f’s “Wut”,
+            rendering rhythm, texture, and structural repetition as a single
+            readable artifact. Both apply the same method to different inputs:
+            take a record that is already complete and find the representation
+            that makes its structure legible.
           </p>
           <dl className={s.aboutFacts} data-reveal="">
             <div>

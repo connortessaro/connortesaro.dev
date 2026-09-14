@@ -77,7 +77,7 @@ function RingiScene() {
           <span>Three perspectives. One decision.</span>
         </div>
       </div>
-      <span className="art-tag">CONVERSATION → CLARITY</span>
+      <span className="art-tag">POSITIONS GATHERED · CRUX STATED</span>
     </div>
   );
 }
@@ -125,9 +125,9 @@ function PhantomScene({ disconnected }: { disconnected: boolean }) {
                 : 'The response arrives, token by token.'}
             </span>
             <p>
-              Complex systems.
+              Usage accrues while the
               <br />
-              Clear interfaces.<span className="terminal-caret">▌</span>
+              stream is still open.<span className="terminal-caret">▌</span>
             </p>
             <div className="signal-bars">
               {Array.from({ length: 42 }, (_, i) => (
@@ -210,7 +210,7 @@ function KizukiScene() {
         </div>
       </div>
       <div className="source-connector" />
-      <span className="art-tag">UNDERSTANDING, WITH RECEIPTS.</span>
+      <span className="art-tag">EVERY CLAIM CARRIES ITS SOURCE</span>
     </div>
   );
 }
@@ -319,7 +319,7 @@ export function ProjectChapter({
           </div>
           {!standalone && (
             <Link href={`/work/${project.slug}`} className="line-link">
-              Explore the project{' '}
+              Read the case study{' '}
               <span className="arrow" aria-hidden="true">
                 ↗
               </span>

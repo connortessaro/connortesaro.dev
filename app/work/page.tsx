@@ -7,7 +7,7 @@ import s from '@/components/home.module.css';
 export const metadata: Metadata = {
   title: 'Selected work',
   description:
-    'Ringi, Phantom, and Kizuki: independent projects by Connor Tessaro.',
+    'Ringi, Phantom, and Kizuki — three independent projects addressing decision capture, inference accounting, and context verification.',
   alternates: { canonical: '/work' },
 };
 export default function WorkPage() {
@@ -16,14 +16,13 @@ export default function WorkPage() {
       <div className="shell">
         <header className="route-intro">
           <span className="eyebrow muted">Selected work / 01—03</span>
-          <h1>
-            Questions.
-            <br />
-            Made tangible.
-          </h1>
+          <h1>Three systems for information that degrades in transit.</h1>
           <p>
-            Tools for making decisions, running inference, and keeping context
-            trustworthy. Built from the interface down to the system underneath.
+            Ringi captures the disagreement a thread leaves implicit, Phantom
+            keeps inference accounting attached to a stream that may terminate
+            early, and Kizuki checks a proposed update against the evidence
+            already on record. I built each one from the interface down to the
+            data layer underneath it.
           </p>
         </header>
         <div className={s.workGrid}>
@@ -42,7 +41,7 @@ export default function WorkPage() {
                 <h2>{p.name}</h2>
                 <p>{p.summary}</p>
                 <span className="line-link">
-                  Explore the project{' '}
+                  Read the case study{' '}
                   <span className="arrow" aria-hidden="true">
                     ↗
                   </span>

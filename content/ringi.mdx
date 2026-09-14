@@ -1,37 +1,37 @@
-## A conversation is not yet a decision.
+## A thread records what a team said, not what it decided.
 
-A team can produce a long thread without agreeing on what is actually in dispute. Different people hold different constraints, and the loudest or earliest answer can shape everything that follows.
+A distributed team can generate a long, engaged discussion and still not converge, because the thread format rewards whoever answers first and whoever answers loudest. The constraint that actually governs the decision often belongs to the person who has not replied yet. By the time they do, the discussion has already organized itself around a different question.
 
-I built Ringi to give those perspectives a structure. It works inside Slack: gather individual positions, identify the crux, write a brief, and put the recommendation back in front of the people affected.
+I built Ringi to give those positions a structure before they collide. It operates inside Slack, where the decision is already being discussed: it gathers individual positions, identifies the crux, writes a brief, and returns the recommendation to the people the decision affects.
 
 ## The system behind the conversation
 
-Ringi separates the conversation from the decision state. A typed state machine governs the session, while gathering and synthesis handle the language. That separation matters because an eloquent model response should not be enough to move a session into the wrong state.
+Ringi separates the conversation from the decision state. A typed state machine governs the session while the gathering and synthesis passes handle the language. That separation is the central design commitment of the project, and it exists for a specific reason: an eloquent model response should never be sufficient to move a session into a state the participants have not actually reached.
 
-The implementation includes multi-workspace OAuth installation, stakeholder messaging, reminders, a Postgres database with Drizzle, and Langfuse instrumentation for model cost, latency, and quality. The project also includes model evaluations and fixtures for assessing synthesis.
+The implementation covers multi-workspace OAuth installation, direct stakeholder messaging, reminders, a PostgreSQL database through Drizzle, and Langfuse instrumentation for model cost, latency, and output quality. I also built model evaluations and fixtures for assessing synthesis quality, because a synthesis pass that degrades quietly is worse than one that fails loudly.
 
 ### Gather before converging
 
-Each stakeholder gets room to state a position independently. The point is to capture the constraints underneath an answer before asking everyone to respond to the same recommendation.
+Each stakeholder receives a direct message and answers independently, without visibility into the other responses. This captures the constraint underneath a position rather than a reaction to whoever posted first, which is the information a thread structurally destroys.
 
 ### Make the disagreement explicit
 
-The resulting brief identifies a crux, presents options, and makes a recommendation. A useful brief should let someone recognize their concern and understand what the decision would change.
+The synthesis pass separates the disagreement from the discussion surrounding it and states the crux as a single contested question with its options attached. The test I hold the output to is narrow: a participant should recognize their own concern in the brief, and should be able to determine what the recommendation would change if adopted.
 
 ### Give objections a path
 
-An objection does not disappear into another long thread. It opens a revision round so the recommendation can be reconsidered. The decision workflow records agreement explicitly.
+An objection opens a revision round rather than a new thread. The decision record retains agreement explicitly, including who agreed and what remained contested, so the artifact that survives the session describes the decision rather than the conversation that produced it.
 
 ## What I owned
 
-I worked across the product design, conversation state machine, Slack integration, database, and deployment. The most interesting boundary was between flexible language and explicit application state: the conversation can vary, but transitions still need rules.
+I designed the product and built the conversation state machine, the Slack integration, the database layer, and the deployment. The most demanding boundary in the project sits between flexible natural language and explicit application state: the conversation is permitted to vary, but the transitions between states still require rules that the model cannot talk its way past.
 
 ## A deliberate tradeoff
 
-Ringi keeps the decision with the participants. That makes the interaction more involved than simply generating a summary, but the outcome carries the context of who agreed and what remained contested.
+Ringi keeps the decision with the participants rather than producing a summary and declaring the matter resolved. This makes the interaction more involved than a single generated digest, and it costs the participants time that a summary would not. The return is that the resulting record carries the context of who agreed and what stayed contested, which is the part a summary discards and the part a team needs six weeks later.
 
 ## Where it stands
 
-Ringi is in early access. The public site includes a theater replay, and the implementation supports the end-to-end decision loop. I am not claiming measured adoption or time savings here; the next question is how well the workflow holds up for teams using it on their own decisions.
+Ringi is in early access. The public site includes a theater replay, and the implementation supports the end-to-end decision loop. I am not claiming measured adoption or time savings, because I do not have them: the open question is how the workflow holds up when teams run it against their own decisions rather than my test fixtures.
 
 [Visit Ringi](https://ringi.dev) · [Watch the public theater](https://ringi.dev/theater)

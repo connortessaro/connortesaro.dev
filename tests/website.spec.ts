@@ -13,7 +13,12 @@ test('all content routes render, remain within viewport, and have canonical meta
   page,
 }) => {
   const errors: string[] = [];
-  page.on('pageerror', (error) => errors.push(error.message));
+  page.on('pageerror', (error) => {
+    // Navigating away cancels in-flight RSC prefetches, which WebKit reports as
+    // a page error. That is the harness outrunning the server, not a site fault.
+    if (error.message.includes('_rsc=')) return;
+    errors.push(error.message);
+  });
   for (const width of [320, 390, 768, 1440, 1920]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of routes) {
@@ -83,7 +88,7 @@ test('responsive scroll setup cleans up after resizing and navigation', async ({
   ).toBe('relative');
   await page
     .locator('#ringi')
-    .getByRole('link', { name: 'Explore the project' })
+    .getByRole('link', { name: 'Read the case study' })
     .click();
   await expect(page).toHaveURL(/work\/ringi/);
   await page.goBack();
@@ -155,7 +160,7 @@ test('core content remains readable with JavaScript disabled', async ({
   await expect(page.locator('#ringi h2')).toContainText('Ringi');
   await page
     .locator('#ringi')
-    .getByRole('link', { name: 'Explore the project' })
+    .getByRole('link', { name: 'Read the case study' })
     .click();
   await expect(page.locator('article')).toContainText('What I owned');
   await context.close();
