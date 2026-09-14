@@ -29,7 +29,7 @@ test('all content routes render, remain within viewport, and have canonical meta
       await expect(page.locator('main h1')).toHaveCount(1);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         'href',
-        `https://connortesaro.dev${route === '/' ? '' : route}`,
+        `https://connortessaro.dev${route === '/' ? '' : route}`,
       );
       expect(
         await page.evaluate(

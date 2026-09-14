@@ -92,7 +92,7 @@ export const projects: Project[] = [
 ];
 export const site = {
   name: 'Connor Tessaro',
-  url: 'https://connortesaro.dev',
+  url: 'https://connortessaro.dev',
   email: 'tessaro.c@northeastern.edu',
   github: 'https://github.com/connortessaro',
   linkedin: 'https://www.linkedin.com/in/connortessaro',

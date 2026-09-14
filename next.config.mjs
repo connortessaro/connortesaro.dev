@@ -13,12 +13,19 @@ const nextConfig = {
   experimental: { optimizePackageImports: ['simple-icons'] },
   async redirects() {
     return [
-      {
+      // The apex moved to connortessaro.dev. The old apex and www on either
+      // spelling redirect there. One entry per host: `has.value` compiles
+      // through path-to-regexp, which does not take an alternation group.
+      ...[
+        'www.connortessaro.dev',
+        'connortesaro.dev',
+        'www.connortesaro.dev',
+      ].map((host) => ({
         source: '/:path*',
-        has: [{ type: 'host', value: 'www.connortesaro.dev' }],
-        destination: 'https://connortesaro.dev/:path*',
+        has: [{ type: 'host', value: host }],
+        destination: 'https://connortessaro.dev/:path*',
         permanent: true,
-      },
+      })),
     ];
   },
 };

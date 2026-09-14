@@ -91,7 +91,7 @@ export async function socialImage(
         <span
           style={{ fontFamily: 'Geist Mono', fontSize: 15, color: '#a1a1a1' }}
         >
-          connortesaro.dev
+          connortessaro.dev
         </span>
       </div>
     </div>,
