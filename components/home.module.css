@@ -6,6 +6,8 @@
 /* Full-bleed wrapper keeps the grid field at viewport width without overflow. */
 .heroWrap {
   position: relative;
+  /* The grid overshoots its box while settling; clip so it cannot scroll. */
+  overflow: clip;
 }
 .heroGrid {
   position: absolute;
@@ -21,6 +23,36 @@
     transparent 100%
   );
   pointer-events: none;
+  animation: gridIn 1.6s var(--ease-out) both;
+}
+/* Cursor-lit region. Brighter lines plus a faint wash, so the grid reads as
+   responding to the pointer rather than merely existing. */
+.heroGrid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+    radial-gradient(
+      300px circle at var(--gx, -999px) var(--gy, -999px),
+      rgba(82, 168, 255, 0.07),
+      transparent 70%
+    );
+  background-size:
+    64px 64px,
+    64px 64px,
+    100% 100%;
+  -webkit-mask-image: radial-gradient(
+    300px circle at var(--gx, -999px) var(--gy, -999px),
+    #000 0%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    300px circle at var(--gx, -999px) var(--gy, -999px),
+    #000 0%,
+    transparent 72%
+  );
 }
 .heroTop {
   display: grid;
@@ -31,6 +63,18 @@
 }
 .heroStatement {
   z-index: 1;
+}
+.heroStatement > * {
+  animation: riseIn 0.8s var(--ease-out) both;
+}
+.heroStatement > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.heroStatement > *:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.heroStatement > *:nth-child(3) {
+  animation-delay: 0.25s;
 }
 .availability {
   display: inline-flex;
@@ -102,11 +146,20 @@
   flex-direction: column;
   padding: 24px 0 40px;
   position: relative;
-  background: linear-gradient(180deg, #fff 10%, #8f8f8f 95%);
+  background:
+    linear-gradient(
+        100deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.85) 40%,
+        transparent 60%
+      )
+      0 0 / 300% 100%,
+    linear-gradient(180deg, #fff 10%, #8f8f8f 95%);
   -webkit-background-clip: text;
   background-clip: text;
   color: var(--ink);
   -webkit-text-fill-color: transparent;
+  animation: sweep 9s var(--ease) 1.4s infinite;
 }
 .name > span {
   display: block;
@@ -126,6 +179,7 @@
   margin-left: 0.06em;
 }
 .heroBottom {
+  animation: riseIn 0.8s var(--ease-out) 0.5s both;
   border-top: 1px solid var(--line-strong);
   display: flex;
   justify-content: space-between;
@@ -254,6 +308,7 @@
   font-size: 30px;
   color: var(--accent);
   letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
 }
 .metric small {
   font-size: 15px;
@@ -526,6 +581,42 @@
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+@keyframes riseIn {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+    filter: blur(5px);
+  }
+  to {
+    transform: none;
+    opacity: 1;
+    filter: none;
+  }
+}
+@keyframes gridIn {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 0.85;
+    transform: none;
+  }
+}
+@keyframes sweep {
+  0%,
+  55% {
+    background-position:
+      120% 0,
+      0 0;
+  }
+  85%,
+  100% {
+    background-position:
+      -20% 0,
+      0 0;
   }
 }
 @keyframes assemble {

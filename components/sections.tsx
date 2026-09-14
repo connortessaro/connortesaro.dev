@@ -32,7 +32,11 @@ export function Experience() {
           </div>
           <div>
             <div className={s.metric}>
-              60 <small>→</small> 10 <small>min</small>
+              <span data-count-to="60">60</span> <small>→</small>{' '}
+              <span data-count-from="60" data-count-to="10">
+                10
+              </span>{' '}
+              <small>min</small>
             </div>
             <p className={s.metricCaption}>Labor-planning pipeline runtime</p>
           </div>
@@ -79,7 +83,7 @@ export function Experiments() {
       className={`shell ${s.experiments}`}
       aria-labelledby="experiments-heading"
     >
-      <div className={s.experimentHeading} data-reveal="">
+      <div className={s.experimentHeading} data-reveal="mask">
         <div>
           <span className="eyebrow muted">04 — Exploratory work</span>
           <h2 id="experiments-heading">

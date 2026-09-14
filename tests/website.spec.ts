@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const routes = [
@@ -109,11 +109,28 @@ test('reduced motion retains complete project access', async ({ page }) => {
     '2',
   );
 });
+/**
+ * Entrance animations and scroll reveals briefly render text at partial opacity,
+ * which axe reads as a contrast failure. Wait for every finite animation to
+ * finish, ignoring the decorative loops that never do.
+ */
+async function settleMotion(page: Page) {
+  await page.waitForFunction(() =>
+    document
+      .getAnimations()
+      .every(
+        (animation) =>
+          animation.playState === 'finished' ||
+          animation.effect?.getTiming().iterations === Infinity,
+      ),
+  );
+}
 test('accessibility scan across homepage and supporting routes', async ({
   page,
 }) => {
   for (const route of routes) {
     await page.goto(route);
+    await settleMotion(page);
     const result = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
       .analyze();

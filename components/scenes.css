@@ -34,6 +34,7 @@
   background: var(--accent);
   border-radius: 50%;
   margin-right: 7px;
+  animation: statusPulse 2.4s var(--ease) infinite;
 }
 .chapter-copy h2 {
   font-size: clamp(44px, 4.8vw, 72px);
@@ -499,12 +500,16 @@
 .request-path i::after {
   content: '';
   position: absolute;
-  right: 0;
   top: -2px;
   width: 5px;
   height: 5px;
   border-radius: 50%;
   background: #52a8ff;
+  box-shadow: 0 0 8px 1px rgba(82, 168, 255, 0.7);
+  animation: travel 2.6s var(--ease) infinite;
+}
+.request-path i:nth-of-type(2)::after {
+  animation-delay: 0.5s;
 }
 .stream-output {
   transition: opacity 0.5s var(--ease);
@@ -520,6 +525,7 @@
 }
 .terminal-caret {
   color: #52a8ff;
+  animation: blink 1.1s steps(1) infinite;
 }
 .signal-bars {
   height: 44px;
@@ -532,6 +538,9 @@
   border-radius: 2px;
   background: #52a8ff;
   opacity: 0.55;
+  transform-origin: 50% 100%;
+  animation: levels 1.1s var(--ease) infinite alternate;
+  animation-delay: calc(var(--bar, 0) * -60ms);
 }
 .signal-bars i:nth-child(3n) {
   opacity: 0.18;
@@ -1073,5 +1082,49 @@
   }
   .ringi-brief {
     top: 10%;
+  }
+}
+
+@keyframes travel {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  12%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+@keyframes levels {
+  from {
+    transform: scaleY(0.35);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes statusPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--accent);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 0 4px transparent;
+    opacity: 0.55;
   }
 }

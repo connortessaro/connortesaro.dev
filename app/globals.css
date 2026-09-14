@@ -215,19 +215,55 @@ a:hover .arrow {
   line-height: 1.7;
 }
 
-/* Scroll reveal: short travel, long ease, staggered by index. */
+/* Scroll reveal. Travel plus a short defocus reads as arrival, not a fade.
+   The hidden state is scoped to the not-yet-shown attribute, so a revealed
+   element never falls back through the base rule. */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(12px);
+  --reveal-delay: calc(var(--reveal-index, 0) * 90ms);
   transition:
-    opacity var(--slow) var(--ease-out),
-    transform var(--slow) var(--ease-out);
-  transition-delay: calc(var(--reveal-index, 0) * 70ms);
-  will-change: opacity, transform;
+    opacity 0.7s var(--ease-out) var(--reveal-delay),
+    transform 0.7s var(--ease-out) var(--reveal-delay),
+    filter 0.7s var(--ease-out) var(--reveal-delay),
+    clip-path 0.9s var(--ease-out) var(--reveal-delay);
 }
-[data-reveal='shown'] {
+[data-reveal=''],
+[data-reveal='fade'] {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(6px);
+  will-change: opacity, transform, filter;
+}
+[data-reveal='fade-shown'] {
   opacity: 1;
   transform: none;
+  filter: none;
+}
+
+/* Wipe reveal for headings. Works with any inner markup, unlike line splitting. */
+[data-reveal='mask'] {
+  clip-path: inset(0 0 110% 0);
+  will-change: clip-path;
+}
+[data-reveal='mask-shown'] {
+  clip-path: inset(-30% 0 -30% 0);
+}
+
+/* Reading-progress rail under the header. */
+.progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--accent-solid), var(--accent));
+  pointer-events: none;
+}
+
+[data-magnetic] {
+  transform: translate(var(--tx, 0), var(--ty, 0));
+  transition: transform 0.35s var(--ease-out);
 }
 
 /* Cursor-tracked highlight on bordered surfaces. */
@@ -242,9 +278,10 @@ a:hover .arrow {
   border-radius: inherit;
   padding: 1px;
   background: radial-gradient(
-    260px circle at var(--mx, 50%) var(--my, 0%),
-    rgba(255, 255, 255, 0.28),
-    transparent 60%
+    320px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0.08) 45%,
+    transparent 70%
   );
   mask:
     linear-gradient(#000 0 0) content-box,
@@ -256,6 +293,25 @@ a:hover .arrow {
   z-index: 2;
 }
 .spotlight:hover::before {
+  opacity: 1;
+}
+/* A dim interior wash keeps the hovered card distinct from its neighbours. */
+.spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(255, 255, 255, 0.045),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity var(--medium) var(--ease);
+  pointer-events: none;
+  z-index: 0;
+}
+.spotlight:hover::after {
   opacity: 1;
 }
 @media (min-width: 1800px) {
@@ -291,7 +347,15 @@ a:hover .arrow {
     transition-duration: 0.01ms !important;
   }
   [data-reveal] {
-    opacity: 1;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
+  .progress {
+    display: none;
+  }
+  [data-magnetic] {
     transform: none;
   }
 }

@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -133,7 +133,12 @@ function PhantomScene({ disconnected }: { disconnected: boolean }) {
               {Array.from({ length: 42 }, (_, i) => (
                 <i
                   key={i}
-                  style={{ height: `${9 + ((i * 17 + 13) % 31)}px` }}
+                  style={
+                    {
+                      height: `${9 + ((i * 17 + 13) % 31)}px`,
+                      '--bar': i,
+                    } as React.CSSProperties
+                  }
                 />
               ))}
             </div>
@@ -250,6 +255,14 @@ export function ProjectChapter({
   const [step, setStep] = useState(0);
   const [disconnected, setDisconnected] = useState(false);
   const [manual, setManual] = useState(false);
+  // Set synchronously on interaction. The scroll trigger stays live until React
+  // commits `manual` and the effect tears it down, and an update landing in that
+  // window would otherwise overwrite the step the visitor just chose.
+  const manualRef = useRef(false);
+  const takeControl = useCallback(() => {
+    manualRef.current = true;
+    setManual(true);
+  }, []);
   useGSAP(
     () => {
       if (standalone || manual) return;
@@ -261,8 +274,10 @@ export function ProjectChapter({
             trigger: root.current,
             start: 'top 22%',
             end: 'bottom 85%',
-            onUpdate: (self) =>
-              setStep(Math.min(2, Math.floor(self.progress * 3))),
+            onUpdate: (self) => {
+              if (manualRef.current) return;
+              setStep(Math.min(2, Math.floor(self.progress * 3)));
+            },
           });
           gsap.fromTo(
             '.project-art',
@@ -337,7 +352,7 @@ export function ProjectChapter({
                   type="button"
                   aria-pressed={step === index}
                   onClick={() => {
-                    setManual(true);
+                    takeControl();
                     setStep(index);
                   }}
                 >
@@ -356,7 +371,7 @@ export function ProjectChapter({
               className="replay"
               type="button"
               onClick={() => {
-                setManual(true);
+                takeControl();
                 setStep(0);
                 setDisconnected(false);
               }}
@@ -379,7 +394,7 @@ export function ProjectChapter({
                 aria-pressed={disconnected}
                 className="scenario-toggle"
                 onClick={() => {
-                  setManual(true);
+                  takeControl();
                   setDisconnected((v) => !v);
                   setStep(2);
                 }}

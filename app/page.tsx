@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <main id="main">
       <div className={s.heroWrap}>
-        <div className={s.heroGrid} aria-hidden="true" />
+        <div className={s.heroGrid} aria-hidden="true" data-cursor-grid="" />
         <section className={`shell ${s.hero}`} aria-labelledby="hero-name">
           <div className={s.heroTop}>
             <div className={s.heroStatement}>
@@ -57,7 +57,7 @@ export default function HomePage() {
         className="shell"
         aria-labelledby="work-title"
       >
-        <div className={s.sectionHead} data-reveal="">
+        <div className={s.sectionHead} data-reveal="mask">
           <span className="eyebrow muted">01 — Selected work</span>
           <h2 id="work-title">
             Three independent projects addressing decision capture,{' '}
@@ -90,7 +90,7 @@ export default function HomePage() {
           </div>
         </div>
         <div data-reveal="">
-          <h2 id="about-heading">
+          <h2 id="about-heading" data-reveal="mask">
             I work on problems where understanding the system{' '}
             <span>is half of the work.</span>
           </h2>

@@ -14,7 +14,7 @@ export default function AboutPage() {
       <div className="shell">
         <header className="route-intro">
           <span className="eyebrow muted">About</span>
-          <h1>
+          <h1 data-reveal="mask">
             I build systems for the places where information degrades in
             transit.
           </h1>
