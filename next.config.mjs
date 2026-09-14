@@ -9,6 +9,16 @@ const nextConfig = {
     '/opengraph-image': ['./assets/fonts/**'],
     '/work/[slug]/opengraph-image': ['./assets/fonts/**'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.connortesaro.dev' }],
+        destination: 'https://connortesaro.dev/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({

@@ -1,12 +1,4 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "nextjs",
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.connortesaro.dev" }],
-      "destination": "https://connortesaro.dev/:path*",
-      "permanent": true
-    }
-  ]
+  "framework": "nextjs"
 }
