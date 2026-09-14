@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { projects, site } from '@/content/projects';
 import { ProjectChapter } from '@/components/scenes';
+import { TechList } from '@/components/tech';
 import Ringi from '@/content/ringi.mdx';
 import Phantom from '@/content/phantom.mdx';
 import Kizuki from '@/content/kizuki.mdx';
@@ -72,7 +73,7 @@ export default async function ProjectPage({
           </div>
           <div>
             <span>BUILT WITH</span>
-            <p>{p.stack.join(' · ')}</p>
+            <TechList labels={p.stack} />
           </div>
           <a
             href={p.link}

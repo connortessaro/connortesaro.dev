@@ -5,6 +5,8 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { Project, ProjectSlug } from '@/content/projects';
+import { AnimatedBeam } from '@/components/animated-beam';
+import { TechPill } from '@/components/tech';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 function RingiScene() {
@@ -82,6 +84,10 @@ function RingiScene() {
   );
 }
 function PhantomScene({ disconnected }: { disconnected: boolean }) {
+  const pathRow = useRef<HTMLDivElement>(null);
+  const keyNode = useRef<HTMLSpanElement>(null);
+  const routeNode = useRef<HTMLSpanElement>(null);
+  const modelNode = useRef<HTMLSpanElement>(null);
   return (
     <div className="phantom-art">
       <div className="phantom-terminal">
@@ -110,12 +116,23 @@ function PhantomScene({ disconnected }: { disconnected: boolean }) {
             </p>
             <p>{'}'}</p>
           </div>
-          <div className="request-path">
-            <span>KEY</span>
-            <i />
-            <span>ROUTE</span>
-            <i />
-            <span>MODEL</span>
+          <div className="request-path" ref={pathRow}>
+            <span ref={keyNode}>KEY</span>
+            <span ref={routeNode}>ROUTE</span>
+            <span ref={modelNode}>MODEL</span>
+            <AnimatedBeam
+              containerRef={pathRow}
+              fromRef={keyNode}
+              toRef={routeNode}
+              curvature={14}
+            />
+            <AnimatedBeam
+              containerRef={pathRow}
+              fromRef={routeNode}
+              toRef={modelNode}
+              curvature={-14}
+              delay={0.7}
+            />
           </div>
           <div className="stream-output">
             <span className="code-comment">
@@ -329,7 +346,7 @@ export function ProjectChapter({
           <p className="chapter-summary">{project.summary}</p>
           <div className="chapter-tags">
             {project.stack.slice(0, 3).map((t) => (
-              <span key={t}>{t}</span>
+              <TechPill key={t} label={t} />
             ))}
           </div>
           {!standalone && (

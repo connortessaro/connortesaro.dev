@@ -9,6 +9,8 @@ const nextConfig = {
     '/opengraph-image': ['./assets/fonts/**'],
     '/work/[slug]/opengraph-image': ['./assets/fonts/**'],
   },
+  // The simple-icons root export is a barrel of ~3,500 icons.
+  experimental: { optimizePackageImports: ['simple-icons'] },
   async redirects() {
     return [
       {

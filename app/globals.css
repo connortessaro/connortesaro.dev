@@ -172,6 +172,38 @@ a:hover .arrow {
   padding: 5px 12px;
   white-space: nowrap;
 }
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.tech-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  white-space: nowrap;
+  transition:
+    color var(--fast) var(--ease),
+    border-color var(--fast) var(--ease);
+}
+.tech-pill svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.tech-pill:hover,
+.spotlight:hover .tech-pill {
+  color: var(--ink);
+  border-color: var(--line-hover);
+}
 .route-intro {
   padding: 112px 0 72px;
 }
@@ -322,6 +354,38 @@ a:hover .arrow {
 @media (max-width: 899px) {
   .shell {
     width: calc(100% - 48px);
+  }
+  .tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .tech-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono), monospace;
+    font-size: 11px;
+    color: var(--muted);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    padding: 4px 8px;
+    white-space: nowrap;
+    transition:
+      color var(--fast) var(--ease),
+      border-color var(--fast) var(--ease);
+  }
+  .tech-pill svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+  .tech-pill:hover,
+  .spotlight:hover .tech-pill {
+    color: var(--ink);
+    border-color: var(--line-hover);
   }
   .route-intro {
     padding: 88px 0 48px;
