@@ -37,36 +37,8 @@ function RingiMark() {
         style={{ '--z': '-20px' } as React.CSSProperties}
       >
         <svg viewBox="0 0 120 120" aria-hidden="true" className={s.echo}>
-          <defs>
-            <filter id="bleedRin" x="-10%" y="-10%" width="120%" height="120%">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.9"
-                numOctaves="2"
-                seed="7"
-                result="n"
-              />
-              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" />
-            </filter>
-            <filter id="grainRin">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.55"
-                numOctaves="2"
-                seed="11"
-                result="g"
-              />
-              <feColorMatrix
-                in="g"
-                type="matrix"
-                values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0"
-                result="holes"
-              />
-              <feComposite in="SourceGraphic" in2="holes" operator="out" />
-            </filter>
-          </defs>
-          <g transform="rotate(-4 60 60)" filter="url(#bleedRin)">
-            <g filter="url(#grainRin)">
+          <g transform="rotate(-4 60 60)">
+            <g>
               <circle
                 cx="60"
                 cy="60"
@@ -96,36 +68,8 @@ function RingiMark() {
         style={{ '--z': '18px' } as React.CSSProperties}
       >
         <svg viewBox="0 0 120 120" aria-hidden="true">
-          <defs>
-            <filter id="bleedRin" x="-10%" y="-10%" width="120%" height="120%">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.9"
-                numOctaves="2"
-                seed="7"
-                result="n"
-              />
-              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" />
-            </filter>
-            <filter id="grainRin">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.55"
-                numOctaves="2"
-                seed="11"
-                result="g"
-              />
-              <feColorMatrix
-                in="g"
-                type="matrix"
-                values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0"
-                result="holes"
-              />
-              <feComposite in="SourceGraphic" in2="holes" operator="out" />
-            </filter>
-          </defs>
-          <g transform="rotate(-4 60 60)" filter="url(#bleedRin)">
-            <g filter="url(#grainRin)">
+          <g transform="rotate(-4 60 60)">
+            <g>
               <circle
                 cx="60"
                 cy="60"
@@ -199,36 +143,8 @@ function KizukiMark() {
         style={{ '--z': '-20px' } as React.CSSProperties}
       >
         <svg viewBox="0 0 120 120" aria-hidden="true" className={s.echo}>
-          <defs>
-            <filter id="bleedKi" x="-10%" y="-10%" width="120%" height="120%">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.9"
-                numOctaves="2"
-                seed="19"
-                result="n"
-              />
-              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" />
-            </filter>
-            <filter id="grainKi">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.55"
-                numOctaves="2"
-                seed="23"
-                result="g"
-              />
-              <feColorMatrix
-                in="g"
-                type="matrix"
-                values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0"
-                result="holes"
-              />
-              <feComposite in="SourceGraphic" in2="holes" operator="out" />
-            </filter>
-          </defs>
-          <g transform="rotate(3 60 60)" filter="url(#bleedKi)">
-            <g filter="url(#grainKi)">
+          <g transform="rotate(3 60 60)">
+            <g>
               <circle
                 cx="60"
                 cy="60"
@@ -258,36 +174,8 @@ function KizukiMark() {
         style={{ '--z': '18px' } as React.CSSProperties}
       >
         <svg viewBox="0 0 120 120" aria-hidden="true">
-          <defs>
-            <filter id="bleedKi" x="-10%" y="-10%" width="120%" height="120%">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.9"
-                numOctaves="2"
-                seed="19"
-                result="n"
-              />
-              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" />
-            </filter>
-            <filter id="grainKi">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.55"
-                numOctaves="2"
-                seed="23"
-                result="g"
-              />
-              <feColorMatrix
-                in="g"
-                type="matrix"
-                values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0"
-                result="holes"
-              />
-              <feComposite in="SourceGraphic" in2="holes" operator="out" />
-            </filter>
-          </defs>
-          <g transform="rotate(3 60 60)" filter="url(#bleedKi)">
-            <g filter="url(#grainKi)">
+          <g transform="rotate(3 60 60)">
+            <g>
               <circle
                 cx="60"
                 cy="60"
