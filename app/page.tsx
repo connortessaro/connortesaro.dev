@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Orbit } from '@/components/orbit';
 import { ProjectChapter } from '@/components/scenes';
+import { ProjectIndex } from '@/components/project-index';
 import { Experiments, Experience } from '@/components/sections';
 import { projects } from '@/content/projects';
 import s from '@/components/home.module.css';
@@ -15,7 +16,7 @@ export default function HomePage() {
             <div className={s.heroStatement}>
               <div className={s.availability}>
                 <span />
-                Software engineer · Northeastern University
+                Software engineer, Northeastern University
               </div>
               <p>
                 I build systems that reduce the administrative overhead{' '}
@@ -39,17 +40,7 @@ export default function HomePage() {
               </span>
             </span>
           </h1>
-          <div className={s.heroBottom}>
-            <span className="eyebrow muted">
-              Three independent projects · 2026
-            </span>
-            <a href="#selected-work" className={s.scrollLink}>
-              Read the selected work <span aria-hidden="true">↓</span>
-            </a>
-            <span className={`eyebrow muted ${s.edition}`}>
-              Portfolio / 2026
-            </span>
-          </div>
+          <ProjectIndex />
         </section>
       </div>
       <section
@@ -58,7 +49,7 @@ export default function HomePage() {
         aria-labelledby="work-title"
       >
         <div className={s.sectionHead} data-reveal="mask">
-          <span className="eyebrow muted">01 — Selected work</span>
+          <span className={s.runningHead}>Selected work</span>
           <h2 id="work-title">
             Three independent projects addressing decision capture,{' '}
             <span>inference accounting, and context verification.</span>
@@ -79,7 +70,7 @@ export default function HomePage() {
         aria-labelledby="about-heading"
       >
         <div data-reveal="">
-          <span className="eyebrow muted">03 — Background</span>
+          <span className={s.runningHead}>Background</span>
           <div className={s.aboutMark} aria-hidden="true">
             ct<span>✳</span>
             <small>

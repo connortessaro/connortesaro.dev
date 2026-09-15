@@ -26,11 +26,26 @@
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --font-body: var(--font-geist-sans);
-  --font-display: var(--font-geist-sans);
+  --font-body: var(--font-newsreader);
+  --font-display: var(--font-newsreader);
   --font-mono: var(--font-geist-mono);
+
+  /* One family, three optical cuts. A serif's hairlines are the first thing to
+     break on black, and the fix is optical size rather than weight: the lower
+     cuts carry sturdier hairlines, lower stroke contrast and looser spacing.
+     font-variation-settings inherits; Geist Mono has no opsz axis and ignores
+     an unrecognised tag, so mono elements are unaffected. */
+  --opsz-ui: 11;
+  --opsz-text: 13;
+  --opsz-display: 72;
+  /* Prose weight, measured rather than eyeballed: at 400 the thinnest strokes
+     render at one device pixel with a p95/p5 stroke-contrast spread of 8 —
+     the washed-out-serif-on-black failure. 450 doubles the hairline to 2px and
+     halves the spread, while carrying less ink than 500 and so less bloom. */
+  --weight-prose: 450;
   color-scheme: dark;
 }
+
 * {
   box-sizing: border-box;
 }
@@ -42,10 +57,13 @@ body {
   margin: 0;
   background: var(--black);
   color: var(--ink);
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-body), serif;
   font-size: 14px;
   line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'opsz' var(--opsz-ui);
+  /* Grayscale smoothing is the conventional light-on-dark fix for a sans, but
+     it strips mass from the hairlines of a high-contrast serif — the strokes
+     that are already marginal at this size. Left off deliberately. */
   /* No double-tap zoom delay on controls. */
   touch-action: manipulation;
 }
@@ -89,9 +107,15 @@ p {
 h1,
 h2,
 h3 {
-  font-family: var(--font-display), sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display), serif;
+  /* 500, not 600: the display cuts are already high-contrast, and 600 closes
+     the counters under halation on black. -0.008em, not -0.04em: caps and
+     lowercase in a serif carry entering and exiting serifs that collide under
+     the negative tracking Geist Sans wanted. */
+  font-weight: 500;
+  letter-spacing: -0.008em;
+  font-variation-settings: 'opsz' var(--opsz-display);
+  text-wrap: balance;
 }
 svg {
   display: block;
@@ -100,8 +124,10 @@ img {
   max-width: 100%;
   height: auto;
 }
-ul {
+ul,
+ol {
   padding: 0;
+  margin: 0;
   list-style: none;
 }
 a:hover .arrow {
@@ -146,7 +172,10 @@ a:hover .arrow {
   display: inline-flex;
   gap: 8px;
   align-items: center;
-  font-size: 14px;
+  font-family: var(--font-mono), monospace;
+  font-variation-settings: normal;
+  font-size: 13px;
+  letter-spacing: -0.01em;
   font-weight: 500;
   color: var(--ink);
   transition: color var(--fast) var(--ease);
@@ -211,15 +240,18 @@ a:hover .arrow {
 }
 .route-intro h1 {
   font-size: clamp(30px, 3.6vw, 50px);
-  line-height: 1.18;
-  letter-spacing: -0.038em;
+  line-height: 1.14;
+  letter-spacing: -0.012em;
   margin-top: 18px;
   max-width: 22ch;
 }
 .route-intro p {
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: var(--weight-prose);
+  font-variation-settings: 'opsz' var(--opsz-text);
   color: var(--muted);
-  line-height: 1.75;
+  line-height: 1.7;
+  text-wrap: pretty;
   max-width: 68ch;
   margin-top: 24px;
 }
@@ -241,12 +273,18 @@ a:hover .arrow {
 }
 .not-found h1 {
   font-size: clamp(64px, 11vw, 128px);
-  letter-spacing: -0.06em;
+  letter-spacing: -0.012em;
+  /* Newsreader defaults to oldstyle figures; the 404 needs lining. */
+  font-variant-numeric: lining-nums;
 }
 .not-found p {
   color: var(--muted);
   max-width: 440px;
+  font-size: 17px;
+  font-weight: var(--weight-prose);
+  font-variation-settings: 'opsz' var(--opsz-text);
   line-height: 1.7;
+  text-wrap: pretty;
 }
 
 /* Scroll reveal. Travel plus a short defocus reads as arrival, not a fade.
@@ -432,6 +470,9 @@ a:hover .arrow {
 @media (pointer: coarse) {
   .line-link,
   .text-link {
+    /* Stated rather than derived from padding: a fractional line-height leaves
+       the computed box a hair under the 44px target. */
+    min-height: 44px;
     padding-block: 12px;
   }
   .tech-pill {

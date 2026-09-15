@@ -5,8 +5,8 @@ import { join } from 'node:path';
 const FONT_DIR = join(process.cwd(), 'assets/fonts');
 
 /**
- * Satori has no Geist glyph for the ✳ mark and substitutes a color emoji, so the
- * mark is drawn rather than typed.
+ * Satori substitutes a color emoji for the ✳ mark — the Newsreader latin subset
+ * has no glyph for it either — so the mark is drawn rather than typed.
  */
 function Asterisk({ size, color }: { size: number; color: string }) {
   return (
@@ -23,9 +23,12 @@ export async function socialImage(
   subtitle: string,
   accent = '#52a8ff',
 ) {
-  const [regular, semibold, mono] = await Promise.all([
-    readFile(join(FONT_DIR, 'Geist-Regular.ttf')),
-    readFile(join(FONT_DIR, 'Geist-SemiBold.ttf')),
+  // Satori renders a variable font at its default instance only, so these are
+  // static optical cuts rather than the variable file the site loads: 72pt for
+  // the display line, 16pt for the subtitle.
+  const [display, text, mono] = await Promise.all([
+    readFile(join(FONT_DIR, 'Newsreader72pt-SemiBold.ttf')),
+    readFile(join(FONT_DIR, 'Newsreader16pt-Regular.ttf')),
     readFile(join(FONT_DIR, 'GeistMono-Regular.ttf')),
   ]);
   return new ImageResponse(
@@ -38,7 +41,7 @@ export async function socialImage(
         background: '#000000',
         color: '#ededed',
         padding: '65px 70px',
-        fontFamily: 'Geist',
+        fontFamily: 'Newsreader',
       }}
     >
       <div
@@ -47,12 +50,12 @@ export async function socialImage(
           justifyContent: 'space-between',
           fontFamily: 'Geist Mono',
           fontSize: 19,
-          letterSpacing: '1px',
+          letterSpacing: '0.5px',
           color: '#a1a1a1',
         }}
       >
-        <span>CONNOR TESSARO</span>
-        <span>SOFTWARE ENGINEER · NORTHEASTERN UNIVERSITY</span>
+        <span>Connor Tessaro</span>
+        <span>Software engineer, Northeastern University</span>
       </div>
       <div
         style={{
@@ -60,9 +63,12 @@ export async function socialImage(
           flex: 1,
           alignItems: 'center',
           gap: 24,
+          fontFamily: 'Newsreader Display',
           fontSize: title.length > 17 ? 88 : 130,
           fontWeight: 600,
-          letterSpacing: '-5px',
+          // -5px was tuned for Geist Sans at -0.04em; on a serif at 130px it
+          // jams the entering and exiting serifs together.
+          letterSpacing: '-1px',
         }}
       >
         {title}
@@ -99,8 +105,15 @@ export async function socialImage(
       width: 1200,
       height: 630,
       fonts: [
-        { name: 'Geist', data: regular, weight: 400, style: 'normal' },
-        { name: 'Geist', data: semibold, weight: 600, style: 'normal' },
+        // Two named families rather than one with two weights: the optical size
+        // is what is being switched, and Satori has no way to express that.
+        {
+          name: 'Newsreader Display',
+          data: display,
+          weight: 600,
+          style: 'normal',
+        },
+        { name: 'Newsreader', data: text, weight: 400, style: 'normal' },
         { name: 'Geist Mono', data: mono, weight: 400, style: 'normal' },
       ],
     },

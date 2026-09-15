@@ -2,11 +2,11 @@
 
 Work context is distributed across conversations, project updates, and meeting notes. Retaining a copy of that information is the straightforward part. The harder question is whether the copy still supports the thing you are about to say or do, and the failure mode is specific: context does not announce that it has expired. It stays confidently available and quietly wrong.
 
-Kizuki is a local-first intelligence layer built for that problem. It organizes work activity into a Markdown vault on the user's own filesystem and exposes the resulting context to both the person and their AI tools through a CLI, an MCP server, and a dashboard.
+Kizuki is a local-first intelligence layer built for that problem. It organizes work activity into a Markdown vault on the user’s own filesystem and exposes the resulting context to both the person and their AI tools through a CLI, an MCP server, and a dashboard.
 
 ## Give the model room to reason. Give writes a contract.
 
-The agent returns a structured payload and deterministic JavaScript applies the changes. This keeps file mutation separate from model reasoning and preserves handwritten notes outside the managed analysis section, so a user's own writing is never subject to a generation step.
+The agent returns a structured payload and deterministic JavaScript applies the changes. This keeps file mutation separate from model reasoning and preserves handwritten notes outside the managed analysis section, so a user’s own writing is never subject to a generation step.
 
 The boundary is deliberate. The analysis is expected to change as new evidence arrives, while the mechanics of updating files stay explicit, inspectable, and repeatable. Those two things need different guarantees, and giving them the same guarantee would weaken the stronger one.
 

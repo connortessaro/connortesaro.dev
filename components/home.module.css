@@ -148,10 +148,13 @@
 }
 /* Name reads as a masthead: tight tracking, top-lit gradient. */
 .name {
-  font-size: clamp(76px, 12.4vw, 190px);
-  font-weight: 600;
-  letter-spacing: -0.065em;
-  line-height: 0.88;
+  font-size: clamp(74px, 12vw, 180px);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 72;
+  /* Near zero, not -0.065em: caps in a serif carry entering and exiting serifs
+     that collide under the tracking Geist Sans wanted. */
+  letter-spacing: -0.012em;
+  line-height: 0.92;
   display: flex;
   flex-direction: column;
   padding: 24px 0 40px;
@@ -159,12 +162,12 @@
   background:
     linear-gradient(
         100deg,
-        transparent 20%,
-        rgba(255, 255, 255, 0.85) 40%,
-        transparent 60%
+        transparent 22%,
+        rgba(255, 255, 255, 0.7) 40%,
+        transparent 58%
       )
       0 0 / 300% 100%,
-    linear-gradient(180deg, #fff 10%, #8f8f8f 95%);
+    linear-gradient(180deg, #fff 6%, #c4c4c4 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: var(--ink);
@@ -187,41 +190,6 @@
   font-weight: 400;
   letter-spacing: 0;
   margin-left: 0.06em;
-}
-.heroBottom {
-  animation: riseIn 0.8s var(--ease-out) 0.5s both;
-  border-top: 1px solid var(--line-strong);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 0 28px;
-  gap: 20px;
-  color: var(--muted);
-}
-.scrollLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink);
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-sm);
-  padding: 7px 14px;
-  transition:
-    border-color var(--fast) var(--ease),
-    background-color var(--fast) var(--ease);
-}
-.scrollLink:hover {
-  border-color: var(--line-hover);
-  background: var(--surface-hover);
-}
-.scrollLink span {
-  transition: transform var(--fast) var(--ease);
-}
-.scrollLink:hover span {
-  transform: translateY(3px);
 }
 .sectionHead {
   padding: 112px 0 56px;
@@ -390,9 +358,10 @@
 }
 .aboutMark {
   font-size: 120px;
-  font-weight: 600;
-  letter-spacing: -0.07em;
-  background: linear-gradient(180deg, #3a3a3a, #121212);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 72;
+  letter-spacing: -0.012em;
+  background: linear-gradient(180deg, #4a4a4a, #1c1c1c);
   -webkit-background-clip: text;
   background-clip: text;
   color: var(--muted);
@@ -552,6 +521,9 @@
 }
 .aboutPage > p {
   font-size: 17px;
+  font-weight: 450;
+  font-variation-settings: 'opsz' var(--opsz-text);
+  text-wrap: pretty;
   line-height: 1.8;
   color: var(--muted);
   margin-bottom: 20px;
@@ -706,15 +678,9 @@
     margin-right: -24px;
   }
   .name {
-    font-size: 15vw;
-    line-height: 0.9;
+    font-size: 14.5vw;
+    line-height: 0.94;
     padding-bottom: 32px;
-  }
-  .heroBottom {
-    padding: 18px 0;
-  }
-  .edition {
-    display: none;
   }
   .sectionHead {
     padding-top: 80px;
@@ -821,22 +787,13 @@
     font-size: 11px;
   }
   .name {
-    font-size: 16vw;
-    letter-spacing: -0.07em;
+    font-size: 15.5vw;
+    letter-spacing: -0.004em;
+    /* ~60px physical: let the optical size track down with it, or the 72pt
+       cut's hairlines fall under one device pixel. */
+    font-variation-settings: 'opsz' 48;
     padding-top: 8px;
     padding-bottom: 28px;
-  }
-  .heroBottom {
-    align-items: start;
-    gap: 16px;
-  }
-  .heroBottom > .eyebrow {
-    max-width: 150px;
-    line-height: 1.7;
-  }
-  .scrollLink {
-    font-size: 12px;
-    white-space: nowrap;
   }
   .sectionHead {
     display: block;
@@ -907,7 +864,6 @@
 }
 
 @media (pointer: coarse) {
-  .scrollLink,
   .prLinks a {
     min-height: 44px;
     display: inline-flex;
@@ -920,4 +876,128 @@
 .heroWrap:not([data-inview]) .name,
 .heroWrap:not([data-inview]) .availability > span::after {
   animation-play-state: paused;
+}
+
+/* The ruled index. Columns align because the header row and every link share
+   one grid-template-columns value; with identical tracks in identically-sized
+   containers, fr resolution is exact. */
+.index {
+  --index-cols: minmax(9ch, 0.9fr) minmax(0, 2.2fr) max-content 1.2em;
+  border-top: 1px solid var(--line-strong);
+  margin-top: 8px;
+}
+.indexList li {
+  border-bottom: 1px solid var(--line);
+}
+.indexList li:last-child {
+  border-bottom-color: var(--line-strong);
+}
+.indexList a {
+  display: grid;
+  grid-template-columns: var(--index-cols);
+  align-items: baseline;
+  column-gap: 32px;
+  padding: 18px 0;
+  color: var(--ink);
+  /* The hover tint overhangs the gutter so the row reads as a ruled ledger
+     line rather than a card. No transform: it would jitter the hairlines. */
+  margin-inline: -16px;
+  padding-inline: 16px;
+  transition: background-color var(--fast) var(--ease);
+}
+.indexList a:hover {
+  background: var(--bg-raised);
+}
+/* Inset: the global focus ring uses outline-offset 2px, which on a flush row
+   draws straight through the rules above and below. */
+.indexList a:focus-visible {
+  outline-offset: -3px;
+  border-radius: 0;
+}
+.indexName {
+  font-family: var(--font-display), serif;
+  font-variation-settings: 'opsz' 28;
+  font-size: clamp(19px, 1.7vw, 24px);
+  font-weight: 500;
+  letter-spacing: -0.008em;
+}
+.indexNote {
+  color: var(--muted);
+  font-size: 16px;
+}
+.indexStatus {
+  font-family: var(--font-mono), monospace;
+  font-variation-settings: normal;
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--faint);
+}
+.indexArrow {
+  color: var(--faint);
+  justify-self: end;
+  transition:
+    transform var(--fast) var(--ease),
+    color var(--fast) var(--ease);
+}
+.indexList a:hover .indexArrow {
+  color: var(--accent);
+  transform: translateY(2px);
+}
+@media (pointer: coarse) {
+  .indexList a {
+    min-height: 44px;
+  }
+}
+@media (max-width: 899px) {
+  .index {
+    --index-cols: minmax(8ch, 1fr) max-content 1.2em;
+    column-gap: 20px;
+  }
+  .indexNote {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .indexList a {
+    grid-template-columns: 1fr max-content;
+    grid-template-areas:
+      'name status'
+      'note note';
+    row-gap: 3px;
+    column-gap: 12px;
+    padding-block: 14px;
+    margin-inline: -10px;
+    padding-inline: 10px;
+    align-items: center;
+  }
+  .indexName {
+    grid-area: name;
+    font-size: 21px;
+  }
+  .indexStatus {
+    grid-area: status;
+  }
+  .indexNote {
+    grid-area: note;
+    display: block;
+    font-size: 14px;
+  }
+  /* Coarse pointers never hover, so the arrow carries no affordance there. */
+  .indexArrow {
+    display: none;
+  }
+}
+
+/* A running head, not an eyebrow: sentence case, no tracked-out caps, sitting
+   on the section rule rather than floating above the heading as a label. */
+.runningHead {
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-variation-settings: normal;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: var(--faint);
+  align-self: start;
+  margin-top: 8px;
 }

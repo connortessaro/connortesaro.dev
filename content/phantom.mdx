@@ -2,7 +2,7 @@
 
 An inference gateway has to connect the API that clients already target with routing, model availability, payment, and accounting. Streaming makes that relationship structurally interesting: the request can stop being visible to the client well before the system has finished accounting for it, and the moment of disconnection is precisely the moment the usual accounting path stops working.
 
-Phantom is an OpenAI-compatible gateway with prepaid keys. It routes inference through Vercel AI Gateway and uses PostgreSQL for the application's data layer.
+Phantom is an OpenAI-compatible gateway with prepaid keys. It routes inference through Vercel AI Gateway and uses PostgreSQL for the application’s data layer.
 
 ## The request lifecycle
 
@@ -22,7 +22,7 @@ Billing uses integer micro-USD throughout, which removes floating-point accumula
 
 ## What I owned
 
-I built the gateway, the streaming metering path, the payment integration, the model directory, and the product interface. The work includes disconnect handling and the operational checks that keep the application's assumptions aligned with both its database and the upstream contract it depends on.
+I built the gateway, the streaming metering path, the payment integration, the model directory, and the product interface. The work includes disconnect handling and the operational checks that keep the application’s assumptions aligned with both its database and the upstream contract it depends on.
 
 ## Architecture changes over time
 
@@ -32,7 +32,7 @@ The current gateway consolidates routing and model discovery behind a single ups
 
 ## Verification has levels
 
-The project's feature inventory distinguishes behavior exercised live in production, behavior covered by tests, and paths that still require end-to-end verification. A route existing in the codebase is a materially different claim from a funded request completing successfully through production, and collapsing the two is the most common way a project's documentation stops being true.
+The project’s feature inventory distinguishes behavior exercised live in production, behavior covered by tests, and paths that still require end-to-end verification. A route existing in the codebase is a materially different claim from a funded request completing successfully through production, and collapsing the two is the most common way a project’s documentation stops being true.
 
 That distinction now shapes how I think about product ownership generally: the interface, the implementation, and the evidence that the two agree have to stay aligned, and the third one degrades first.
 

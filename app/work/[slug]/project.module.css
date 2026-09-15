@@ -10,7 +10,7 @@
 }
 .titleRow h1 {
   font-size: clamp(64px, 9vw, 132px);
-  letter-spacing: -0.06em;
+  letter-spacing: -0.012em;
   line-height: 0.92;
 }
 .headline {
@@ -96,7 +96,10 @@
   margin: 32px 0 12px;
 }
 .article p {
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 450;
+  font-variation-settings: 'opsz' var(--opsz-text);
+  text-wrap: pretty;
   line-height: 1.8;
   color: var(--muted);
   margin-bottom: 20px;
@@ -120,7 +123,7 @@
   font-size: clamp(48px, 6.4vw, 84px);
   display: flex;
   justify-content: space-between;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.012em;
   margin-top: 20px;
 }
 .next .arrow {
