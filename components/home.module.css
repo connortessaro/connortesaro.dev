@@ -26,16 +26,30 @@
   animation: gridIn 1.6s var(--ease-out) both;
 }
 /* Cursor-lit region. Brighter lines plus a faint wash, so the grid reads as
-   responding to the pointer rather than merely existing. */
+   responding to the pointer rather than merely existing.
+
+   This is a small layer translated to the cursor, not a full-viewport layer
+   with a moving mask. A mask whose position changes cannot be composited, so
+   the original re-rasterised the whole hero on every pointer frame — measured
+   at 38-51fps against 60 with the mask alone removed. Translating a 620px
+   layer with a static mask keeps the effect identical and stays on the GPU.
+   The negative background-position cancels the translate, so the lit grid
+   lines stay registered with the base grid underneath instead of sliding. */
 .heroGrid::after {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 620px;
+  height: 620px;
+  margin: -310px 0 0 -310px;
+  transform: translate3d(var(--gx, -9999px), var(--gy, -9999px), 0);
+  will-change: transform;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px),
     radial-gradient(
-      300px circle at var(--gx, -999px) var(--gy, -999px),
+      310px circle at 50% 50%,
       rgba(82, 168, 255, 0.07),
       transparent 70%
     );
@@ -43,13 +57,17 @@
     64px 64px,
     64px 64px,
     100% 100%;
+  background-position:
+    calc(310px - var(--gx, 0px)) calc(310px - var(--gy, 0px)),
+    calc(310px - var(--gx, 0px)) calc(310px - var(--gy, 0px)),
+    50% 50%;
   -webkit-mask-image: radial-gradient(
-    300px circle at var(--gx, -999px) var(--gy, -999px),
+    310px circle at 50% 50%,
     #000 0%,
     transparent 72%
   );
   mask-image: radial-gradient(
-    300px circle at var(--gx, -999px) var(--gy, -999px),
+    310px circle at 50% 50%,
     #000 0%,
     transparent 72%
   );
