@@ -168,9 +168,9 @@ export function MotionRoot() {
     const onPointerMove = (event: PointerEvent) => {
       pointerX = event.clientX;
       pointerY = event.clientY;
-      spot = (event.target as Element | null)?.closest<HTMLElement>(
-        '.spotlight',
-      ) ?? null;
+      spot =
+        (event.target as Element | null)?.closest<HTMLElement>('.spotlight') ??
+        null;
       if (!pointerFrame) pointerFrame = requestAnimationFrame(applyPointer);
     };
 

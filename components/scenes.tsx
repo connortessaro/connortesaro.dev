@@ -327,9 +327,7 @@ export function ProjectChapter({
       <div className="chapter-sticky">
         <div className="chapter-copy">
           <div className="chapter-kicker">
-            <span className="eyebrow">
-              {project.number} / {project.category}
-            </span>
+            <span className="running-head">{project.discipline}</span>
             <span className="chapter-status">{project.status}</span>
           </div>
           <h2>
@@ -404,7 +402,7 @@ export function ProjectChapter({
             disconnected={disconnected}
           />
           <figcaption>
-            <span>INTERACTIVE DEMONSTRATION · SYNTHETIC DATA</span>
+            <span>Interactive demonstration. Synthetic data.</span>
             {project.slug === 'phantom' ? (
               <button
                 type="button"

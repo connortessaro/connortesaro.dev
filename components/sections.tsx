@@ -8,16 +8,14 @@ export function Experience() {
     <section className={s.experience} aria-labelledby="experience-heading">
       <div className="shell">
         <div className={s.experienceHeading} data-reveal="">
-          <h2 id="experience-heading" className="eyebrow muted">
-            02 — Professional and open source
-          </h2>
+          <h2 id="experience-heading">Professional and open source</h2>
           <p>
             Production systems, delivered on teams that were already running.
           </p>
         </div>
         <div className={`${s.experienceRow} spotlight`} data-reveal="">
           <div className={s.company}>
-            Chewy<span>JUN — DEC 2026 · CO-OP</span>
+            Chewy<span>Co-op, June–December 2026</span>
           </div>
           <div>
             <h3>Software Engineer Co-op</h3>
@@ -43,7 +41,7 @@ export function Experience() {
         </div>
         <div className={`${s.experienceRow} spotlight`} data-reveal="">
           <div className={s.company}>
-            Prisma<span>MAR 2026 · OPEN SOURCE</span>
+            Prisma<span>Open source, March 2026</span>
           </div>
           <div>
             <h3>Contributions to Prisma ORM</h3>
@@ -85,7 +83,7 @@ export function Experiments() {
     >
       <div className={s.experimentHeading} data-reveal="mask">
         <div>
-          <span className="eyebrow muted">04 — Exploratory work</span>
+          <span className={s.runningHead}>Exploratory work</span>
           <h2 id="experiments-heading">
             Smaller projects, built to answer a single question.
           </h2>
