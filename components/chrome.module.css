@@ -65,23 +65,139 @@
   font-size: 11px;
   color: var(--faint);
 }
+/* Dark glass. Black cannot be refracted, so none of this is transmission — the
+   form is built entirely from edges: a prismatic rim, a bevel catch along the
+   top, a shadow line under the bottom, and a specular that tracks the cursor.
+   The faint accent glow behind it exists so backdrop-filter has something other
+   than black to blur. */
 .contact {
+  position: relative;
+  isolation: isolate;
   font-size: 14px;
   font-weight: 500;
-  background: var(--ink);
-  color: var(--black);
-  border-radius: var(--radius-sm);
-  padding: 7px 14px;
+  color: var(--ink);
+  border-radius: 100px;
+  padding: 6px 14px 6px 6px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.07) 58%,
+    rgba(255, 255, 255, 0.11)
+  );
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  box-shadow:
+    /* the bevel catching the key light, and the dark underside opposite it */
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    inset 0 0 14px rgba(255, 255, 255, 0.09),
+    0 6px 18px rgba(0, 0, 0, 0.5);
   transition:
-    background-color var(--fast) var(--ease),
-    transform var(--fast) var(--ease);
+    box-shadow var(--medium) var(--ease),
+    background-color var(--fast) var(--ease);
 }
+
+/* Prismatic rim. A conic gradient masked to a 1px ring — the dispersion the
+   reference gets for free from a bevel thick enough to split light. */
+.contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from 200deg,
+    rgba(255, 158, 196, 0.9),
+    rgba(255, 196, 107, 0.85),
+    rgba(142, 240, 208, 0.8),
+    rgba(111, 180, 255, 0.95),
+    rgba(201, 163, 255, 0.85),
+    rgba(255, 158, 196, 0.9)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.62;
+  transition: opacity var(--medium) var(--ease);
+}
+
+/* Specular. MotionRoot writes --mx/--my on anything carrying data-lit. */
+.contact::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    70px circle at var(--mx, -999px) var(--my, -999px),
+    rgba(255, 255, 255, 0.3),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--medium) var(--ease);
+}
+
 .contact:hover {
-  background: #fff;
-  transform: translateY(-1px);
+  background-color: rgba(255, 255, 255, 0.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    inset 0 0 16px rgba(255, 255, 255, 0.1),
+    0 8px 24px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+.contact:hover::before {
+  opacity: 0.85;
+}
+.contact:hover::after {
+  opacity: 1;
+}
+
+/* The bead in the left cap, standing in for the reference's glass sphere. */
+.contactOrb {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--accent);
+  background:
+    radial-gradient(
+      circle at 34% 26%,
+      rgba(255, 255, 255, 0.85),
+      rgba(255, 255, 255, 0.22) 46%,
+      rgba(255, 255, 255, 0.06) 100%
+    ),
+    rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.45),
+    0 0 10px rgba(82, 168, 255, 0.3);
+  transition: box-shadow var(--medium) var(--ease);
+}
+.contact:hover .contactOrb {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.5),
+    0 0 14px rgba(82, 168, 255, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact::after {
+    display: none;
+  }
 }
 .footer {
   background: var(--bg);

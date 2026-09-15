@@ -17,8 +17,19 @@ export function Navigation() {
             Résumé <span aria-hidden="true">↗</span>
           </a>
         </nav>
-        <a className={s.contact} href={`mailto:${site.email}`} data-magnetic="">
-          Let’s talk <span aria-hidden="true">↗</span>
+        <a
+          className={s.contact}
+          href={`mailto:${site.email}`}
+          data-magnetic=""
+          data-lit=""
+        >
+          <span className={s.contactOrb} aria-hidden="true">
+            ✳
+          </span>
+          Let’s talk{' '}
+          <span className="arrow" aria-hidden="true">
+            ↗
+          </span>
         </a>
       </div>
       <div className="progress" aria-hidden="true" />

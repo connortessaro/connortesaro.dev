@@ -169,8 +169,9 @@ export function MotionRoot() {
       pointerX = event.clientX;
       pointerY = event.clientY;
       spot =
-        (event.target as Element | null)?.closest<HTMLElement>('.spotlight') ??
-        null;
+        (event.target as Element | null)?.closest<HTMLElement>(
+          '.spotlight, [data-lit]',
+        ) ?? null;
       if (!pointerFrame) pointerFrame = requestAnimationFrame(applyPointer);
     };
 
