@@ -3,7 +3,6 @@ export type Project = {
   slug: ProjectSlug;
   number: string;
   name: string;
-  category: string;
   /** One-line predicate for the ruled index under the masthead. Keep it under
       42 characters; `headline` is a sentence and `summary` is a paragraph, and
       truncating either is fragile. */
@@ -25,7 +24,6 @@ export const projects: Project[] = [
     discipline: 'Decision capture in Slack',
     number: '01',
     name: 'Ringi',
-    category: 'AI × collaboration',
     headline:
       'A thread records what a team said. It does not record what the team decided.',
     summary:
@@ -48,7 +46,6 @@ export const projects: Project[] = [
     discipline: 'Inference accounting and settlement',
     number: '02',
     name: 'Phantom',
-    category: 'AI × infrastructure',
     headline:
       'A streaming request can stop being visible to the client before the system has finished accounting for it.',
     summary:
@@ -77,7 +74,6 @@ export const projects: Project[] = [
     discipline: 'Context verification against sources',
     number: '03',
     name: 'Kizuki',
-    category: 'AI × developer tools',
     headline:
       'Stored context is only useful for as long as it survives new evidence.',
     summary:

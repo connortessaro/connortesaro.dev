@@ -22,12 +22,6 @@ export default function HomePage() {
                 I build systems that reduce the administrative overhead{' '}
                 <span>between a team’s intent and its execution.</span>
               </p>
-              <div className={s.heroSmall}>
-                Currently a software engineering co-op at Chewy, working on
-                labor and capacity planning across Snowflake pipelines, AWS
-                infrastructure, and the interfaces that carry forecasts to
-                fulfillment-center teams.
-              </div>
             </div>
             <Orbit />
           </div>
@@ -51,13 +45,12 @@ export default function HomePage() {
         <div className={s.sectionHead} data-reveal="mask">
           <span className="eyebrow muted">Selected work</span>
           <h2 id="work-title">
-            Three independent projects addressing decision capture,{' '}
-            <span>inference accounting, and context verification.</span>
+            Each one began as a question about where a system{' '}
+            <span>loses its evidence.</span>
           </h2>
           <p>
-            Each one began as a question about where a system loses information,
-            and each is built from the interface down to the data layer
-            underneath it.
+            Built from the interface down to the data layer underneath it, so
+            the answer holds at every level it passes through.
           </p>
         </div>
         {projects.map((project) => (
@@ -86,13 +79,10 @@ export default function HomePage() {
             <span>is half of the work.</span>
           </h2>
           <p>
-            I am a computer science student at Northeastern University with a
-            mathematics minor, currently on co-op as a software engineer at
-            Chewy in Boston. The problems I return to are the ones where
-            information degrades as it moves between people and systems — a
-            disagreement that never gets stated, a billing path that opens when
-            a stream disconnects, a stored assumption that quietly stops being
-            true.
+            The problems I return to are the ones where information degrades as
+            it moves between people and systems — a disagreement that never gets
+            stated, a billing path that opens when a stream disconnects, a
+            stored assumption that quietly stops being true.
           </p>
           <p>
             Each of those questions became a project, and each required building

@@ -89,8 +89,7 @@ export default async function ProjectPage({
       <div className={s.story}>
         <aside>
           <span className="eyebrow muted">Behind the build</span>
-          <p>{p.category}</p>
-          <a href="#demo">↑ Explore the demo</a>
+          <p>{p.discipline}</p>
           {p.source && (
             <a href={p.source} target="_blank" rel="noreferrer">
               Source on GitHub ↗

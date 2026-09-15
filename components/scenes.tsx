@@ -326,34 +326,40 @@ export function ProjectChapter({
     >
       <div className="chapter-sticky">
         <div className="chapter-copy">
-          <div className="chapter-kicker">
-            <span className="eyebrow">{project.discipline}</span>
-            <span className="chapter-status">{project.status}</span>
-          </div>
-          <h2>
-            {project.name}
-            <span aria-hidden="true">
-              {project.slug === 'ringi'
-                ? '稟議'
-                : project.slug === 'kizuki'
-                  ? '気づき'
-                  : 'AI'}
-            </span>
-          </h2>
-          <h3>{project.headline}</h3>
-          <p className="chapter-summary">{project.summary}</p>
-          <div className="chapter-tags">
-            {project.stack.slice(0, 3).map((t) => (
-              <TechPill key={t} label={t} />
-            ))}
-          </div>
+          {/* On a case study the page header already carries every one of
+              these — discipline, status, name, headline, stack — so the copy
+              column is the same text twice on one screen. There, the chapter
+              is only wanted for its demo. */}
           {!standalone && (
-            <Link href={`/work/${project.slug}`} className="line-link">
-              Read the case study{' '}
-              <span className="arrow" aria-hidden="true">
-                ↗
-              </span>
-            </Link>
+            <>
+              <div className="chapter-kicker">
+                <span className="eyebrow">{project.discipline}</span>
+                <span className="chapter-status">{project.status}</span>
+              </div>
+              <h2>
+                {project.name}
+                <span aria-hidden="true">
+                  {project.slug === 'ringi'
+                    ? '稟議'
+                    : project.slug === 'kizuki'
+                      ? '気づき'
+                      : 'AI'}
+                </span>
+              </h2>
+              <h3>{project.headline}</h3>
+              <p className="chapter-summary">{project.summary}</p>
+              <div className="chapter-tags">
+                {project.stack.slice(0, 3).map((t) => (
+                  <TechPill key={t} label={t} />
+                ))}
+              </div>
+              <Link href={`/work/${project.slug}`} className="line-link">
+                Read the case study{' '}
+                <span className="arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </Link>
+            </>
           )}
           <div className="chapter-controls">
             <div

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { projects } from '@/content/projects';
 import { ProjectArt } from '@/components/scenes';
-import { Experiments } from '@/components/sections';
 import s from '@/components/home.module.css';
 export const metadata: Metadata = {
   title: 'Selected work',
@@ -17,13 +16,6 @@ export default function WorkPage() {
         <header className="route-intro">
           <span className="eyebrow muted">Selected work</span>
           <h1>Three systems for information that degrades in transit.</h1>
-          <p>
-            Ringi captures the disagreement a thread leaves implicit, Phantom
-            keeps inference accounting attached to a stream that may terminate
-            early, and Kizuki checks a proposed update against the evidence
-            already on record. I built each one from the interface down to the
-            data layer underneath it.
-          </p>
         </header>
         <div className={s.workGrid}>
           {projects.map((p) => (
@@ -36,10 +28,10 @@ export default function WorkPage() {
               <ProjectArt slug={p.slug} />
               <div>
                 <span className="eyebrow" style={{ color: p.accent }}>
-                  {p.number} / {p.category}
+                  {p.discipline}
                 </span>
                 <h2>{p.name}</h2>
-                <p>{p.summary}</p>
+                <p>{p.headline}</p>
                 <span className="line-link">
                   Read the case study{' '}
                   <span className="arrow" aria-hidden="true">
@@ -51,7 +43,6 @@ export default function WorkPage() {
           ))}
         </div>
       </div>
-      <Experiments />
     </main>
   );
 }
