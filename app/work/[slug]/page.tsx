@@ -68,11 +68,11 @@ export default async function ProjectPage({
         <p className={s.headline}>{p.headline}</p>
         <div className={`${s.details} spotlight`} data-reveal="">
           <div>
-            <span>MY CONTRIBUTION</span>
+            <span>My contribution</span>
             <p>{p.contribution}</p>
           </div>
           <div>
-            <span>BUILT WITH</span>
+            <span>Built with</span>
             <TechList labels={p.stack} />
           </div>
           <a

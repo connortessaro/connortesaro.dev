@@ -49,7 +49,7 @@ export default function HomePage() {
         aria-labelledby="work-title"
       >
         <div className={s.sectionHead} data-reveal="mask">
-          <span className={s.runningHead}>Selected work</span>
+          <span className="eyebrow muted">Selected work</span>
           <h2 id="work-title">
             Three independent projects addressing decision capture,{' '}
             <span>inference accounting, and context verification.</span>
@@ -70,7 +70,7 @@ export default function HomePage() {
         aria-labelledby="about-heading"
       >
         <div data-reveal="">
-          <span className={s.runningHead}>Background</span>
+          <span className="eyebrow muted">Background</span>
           <div className={s.aboutMark} aria-hidden="true">
             ct<span>✳</span>
             <small>

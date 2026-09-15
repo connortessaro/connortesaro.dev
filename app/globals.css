@@ -157,12 +157,16 @@ a:hover .arrow {
   margin: auto;
 }
 
-/* Mono micro-labels are the Geist system's secondary voice. */
+/* The one mono label. Sentence case, not tracked-out caps: an all-caps eyebrow
+   above every heading is the commonest piece of template chrome there is, and
+   it appeared here regardless of what the label actually said. Caps survive
+   only where the text is literally written that way — inside the product
+   scenes, which depict other interfaces. */
 .eyebrow {
   font-family: var(--font-mono), monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-variation-settings: normal;
+  font-size: 12px;
+  letter-spacing: 0.01em;
   line-height: 1.6;
 }
 .muted {
@@ -194,8 +198,7 @@ a:hover .arrow {
 .pill {
   font-family: var(--font-mono), monospace;
   font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.01em;
   color: var(--muted);
   background: var(--surface);
   border: 1px solid var(--line-strong);
