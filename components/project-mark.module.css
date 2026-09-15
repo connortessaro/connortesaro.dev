@@ -1,0 +1,187 @@
+/* Layered planes under preserve-3d. Every layer is composited, so rotating the
+   whole stack is a transform and nothing repaints. The drift is slow and small
+   — it exists to show the mark has depth, not to be watched. */
+.mark {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 240px;
+  perspective: 700px;
+}
+
+.stage {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 700ms var(--ease-out);
+  animation: markDrift 14s var(--ease) infinite;
+}
+/* The pointer takes over from the idle drift rather than fighting it. */
+.mark:hover .stage {
+  animation-play-state: paused;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(var(--z, 0px));
+  transform-style: preserve-3d;
+}
+.layer svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ring,
+.ringThin,
+.ghost,
+.rule,
+.ruleFaint {
+  fill: none;
+  stroke-linecap: round;
+}
+.ring {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.ringThin {
+  stroke: var(--accent);
+  stroke-width: 1.25;
+  opacity: 0.65;
+}
+/* The plane behind: the same form, one step further back and nearly gone. */
+.ghost {
+  stroke: var(--line-hover);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+.rule {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  opacity: 0.4;
+}
+.ruleFaint {
+  stroke: var(--line-hover);
+  stroke-width: 1.5;
+}
+.bar {
+  fill: var(--accent);
+}
+.dot {
+  fill: var(--accent);
+}
+
+.glyph {
+  display: grid;
+  place-content: center;
+  font-family: var(--font-display), serif;
+  font-size: 44px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+@keyframes markDrift {
+  0%,
+  100% {
+    transform: rotateX(6deg) rotateY(-13deg);
+  }
+  50% {
+    transform: rotateX(-5deg) rotateY(13deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage {
+    animation: none;
+    transform: rotateX(4deg) rotateY(-10deg);
+  }
+}
+
+@media (max-width: 899px) {
+  .mark {
+    max-width: 150px;
+  }
+  .glyph {
+    font-size: 30px;
+  }
+}
+
+/* The row that replaces the pinned chapter. One screen for all three instead
+   of 160svh each, and no scroll sequence to sit through. */
+.row {
+  display: grid;
+  grid-template-columns: 240px 1fr auto;
+  gap: 7%;
+  align-items: center;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--line);
+}
+.row:first-of-type {
+  border-top: 1px solid var(--line-strong);
+}
+.row:last-of-type {
+  border-bottom-color: var(--line-strong);
+}
+
+.body h2 {
+  font-size: clamp(34px, 3.6vw, 54px);
+  line-height: 1;
+  margin: 10px 0 14px;
+}
+.body h2 span {
+  font-size: 0.3em;
+  vertical-align: super;
+  color: var(--accent);
+  letter-spacing: 0;
+  margin-left: 10px;
+  font-weight: 400;
+}
+.body h3 {
+  font-size: clamp(17px, 1.7vw, 21px);
+  line-height: 1.35;
+  color: var(--muted);
+  max-width: 40ch;
+  margin-bottom: 20px;
+}
+.kicker {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  color: var(--accent);
+}
+.status {
+  color: var(--faint);
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 18px;
+  text-align: right;
+}
+
+@media (max-width: 1100px) {
+  .row {
+    grid-template-columns: 180px 1fr;
+    gap: 5%;
+  }
+  .meta {
+    grid-column: 2;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 36px 0;
+  }
+  .meta {
+    grid-column: 1;
+  }
+}

@@ -74,18 +74,15 @@ test('project steps and disconnect settlement are keyboard operable', async ({
     );
   }
 });
-test('responsive scroll setup cleans up after resizing and navigation', async ({
-  page,
-}) => {
+test('project rows link out and survive back-navigation', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
-  await page.locator('#ringi').scrollIntoViewIfNeeded();
+  // The homepage used to pin each project and step it on scroll. It is now
+  // three static rows, so what matters is that each still reaches its case
+  // study and that coming back leaves one of each.
+  await expect(page.locator('#ringi')).toHaveCount(1);
   await page.setViewportSize({ width: 390, height: 844 });
-  expect(
-    await page
-      .locator('#ringi .chapter-sticky')
-      .evaluate((el) => getComputedStyle(el).position),
-  ).toBe('relative');
+  await expect(page.locator('#ringi')).toBeVisible();
   await page
     .locator('#ringi')
     .getByRole('link', { name: 'Read the case study' })
@@ -98,17 +95,13 @@ test('responsive scroll setup cleans up after resizing and navigation', async ({
 test('reduced motion retains complete project access', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  expect(
-    await page
-      .locator('#ringi .chapter-sticky')
-      .evaluate((el) => getComputedStyle(el).position),
-  ).toBe('relative');
-  await page.locator('#ringi .step-buttons button').nth(2).click();
-  await expect(page.locator('#ringi .project-art')).toHaveAttribute(
-    'data-step',
-    '2',
-  );
+  await expect(page.locator('#ringi')).toBeVisible();
+  // The demo moved to the case study, so that is where step access matters.
+  await page.goto('/work/ringi');
+  await page.locator('.step-buttons button').nth(2).click();
+  await expect(page.locator('.project-art')).toHaveAttribute('data-step', '2');
 });
+
 /**
  * Entrance animations and scroll reveals briefly render text at partial opacity,
  * which axe reads as a contrast failure. Wait for every finite animation to

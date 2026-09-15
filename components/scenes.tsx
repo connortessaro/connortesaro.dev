@@ -1,13 +1,9 @@
 'use client';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { Project, ProjectSlug } from '@/content/projects';
 import { AnimatedBeam } from '@/components/animated-beam';
 import { TechPill } from '@/components/tech';
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 function RingiScene() {
   return (
@@ -270,51 +266,6 @@ export function ProjectChapter({
   const root = useRef<HTMLElement>(null);
   const [step, setStep] = useState(0);
   const [disconnected, setDisconnected] = useState(false);
-  const [manual, setManual] = useState(false);
-  // Set synchronously on interaction. The scroll trigger stays live until React
-  // commits `manual` and the effect tears it down, and an update landing in that
-  // window would otherwise overwrite the step the visitor just chose.
-  const manualRef = useRef(false);
-  const takeControl = useCallback(() => {
-    manualRef.current = true;
-    setManual(true);
-  }, []);
-  useGSAP(
-    () => {
-      if (standalone || manual) return;
-      const media = gsap.matchMedia();
-      media.add(
-        '(min-width: 900px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)',
-        () => {
-          ScrollTrigger.create({
-            trigger: root.current,
-            start: 'top 22%',
-            end: 'bottom 85%',
-            onUpdate: (self) => {
-              if (manualRef.current) return;
-              setStep(Math.min(2, Math.floor(self.progress * 3)));
-            },
-          });
-          gsap.fromTo(
-            '.project-art',
-            { y: 35 },
-            {
-              y: -15,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: root.current,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1,
-              },
-            },
-          );
-        },
-      );
-      return () => media.revert();
-    },
-    { scope: root, dependencies: [standalone, manual], revertOnUpdate: true },
-  );
   return (
     <section
       ref={root}
@@ -373,7 +324,6 @@ export function ProjectChapter({
                   type="button"
                   aria-pressed={step === index}
                   onClick={() => {
-                    takeControl();
                     setStep(index);
                   }}
                 >
@@ -381,7 +331,7 @@ export function ProjectChapter({
                 </button>
               ))}
             </div>
-            <p className="step-caption" aria-live={manual ? 'polite' : 'off'}>
+            <p className="step-caption" aria-live="polite">
               {project.slug === 'phantom' && step === 2
                 ? disconnected
                   ? 'Client disconnected. Missing final usage is estimated, and the request is settled in integer micro-USD.'
@@ -392,7 +342,6 @@ export function ProjectChapter({
               className="replay"
               type="button"
               onClick={() => {
-                takeControl();
                 setStep(0);
                 setDisconnected(false);
               }}
@@ -415,7 +364,6 @@ export function ProjectChapter({
                 aria-pressed={disconnected}
                 className="scenario-toggle"
                 onClick={() => {
-                  takeControl();
                   setDisconnected((v) => !v);
                   setStep(2);
                 }}
