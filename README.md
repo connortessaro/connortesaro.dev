@@ -38,7 +38,7 @@ Open Graph cards render through `components/social-image.tsx`, which loads the G
 
 ## Hosting
 
-GitHub: `connortessaro/connortesaro.dev` (private). Vercel: `connortesaro-dev` in `connor-tessaros-projects`, connected through the GitHub integration. `main` is the production branch; other branches receive preview deployments. Production domain: `connortessaro.dev`. The former apex `connortesaro.dev` and `www` on either spelling redirect there permanently. The GitHub repository and the Vercel project keep their original names.
+GitHub: `connortessaro/connortesaro.dev` (public). Vercel: `connortesaro-dev` in `connor-tessaros-projects`, connected through the GitHub integration. `main` is the production branch; other branches receive preview deployments. Production domain: `connortessaro.dev`. The former apex `connortesaro.dev` and `www` on either spelling redirect there permanently. The GitHub repository and the Vercel project keep their original names.
 
 Preview builds set both robots metadata and robots.txt to disallow indexing. No database, application secrets, analytics, or external font requests are required at runtime. Vercel’s local CLI environment file is ignored by Git.
 
