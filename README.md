@@ -34,7 +34,7 @@ GSAP ScrollTrigger advances the desktop chapters through three states. Controls 
 
 `components/motion.tsx` supplies the rest from the document root, so static sections opt in through an attribute rather than becoming client components: scroll reveals, heading wipes, the cursor-lit hero grid, the reading-progress rail, the magnetic contact button, and count-up metrics. Every effect is inert under `prefers-reduced-motion`, and a `noscript` rule keeps revealed content visible without JavaScript.
 
-Open Graph cards render through `components/social-image.tsx`, which loads the Geist files vendored in `assets/fonts` and draws the asterisk mark as SVG, because Satori substitutes a color emoji for that glyph.
+Open Graph cards render through `components/social-image.tsx`, which loads the static font cuts vendored in `assets/fonts` and draws the asterisk mark as SVG, because Satori substitutes a color emoji for that glyph. The cuts are static rather than the variable file the site loads: Satori renders a variable font at its default instance only, so the display and text optical sizes have to be separate files.
 
 ## Hosting
 
@@ -44,4 +44,4 @@ Preview builds set both robots metadata and robots.txt to disallow indexing. No 
 
 ## Attribution
 
-Repository history began with the `ibelick/nim` portfolio starter. The current redesign replaces its presentation and components. Typeface families: Geist Sans and Geist Mono, self-hosted through the `geist` package.
+Repository history began with the `ibelick/nim` portfolio starter. The current redesign replaces its presentation and components. Typeface families: Newsreader (Production Type, OFL) for display and prose, self-hosted through `next/font/google`; Geist Mono for figures, labels, and code, self-hosted through the `geist` package. Newsreader carries its optical-size axis, so one family serves both the masthead and running text.

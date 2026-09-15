@@ -13,6 +13,13 @@
   align-items: center;
   padding: 56px 0;
 }
+.running-head {
+  font-family: var(--font-mono), monospace;
+  font-variation-settings: normal;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+}
 .chapter-kicker {
   display: flex;
   align-items: center;
@@ -54,7 +61,8 @@
 }
 .chapter-copy h2 {
   font-size: clamp(44px, 4.8vw, 72px);
-  letter-spacing: -0.055em;
+  letter-spacing: -0.012em;
+  font-variation-settings: 'opsz' var(--opsz-display);
   line-height: 1;
   margin: 28px 0;
 }
@@ -147,6 +155,8 @@
   min-width: 0;
 }
 .chapter-figure figcaption {
+  text-transform: none;
+  letter-spacing: 0.01em;
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -243,7 +253,7 @@
   letter-spacing: 0.08em;
 }
 .brief-heading > span:first-child {
-  font-family: var(--font-body);
+  font-family: var(--font-body), serif;
   font-size: 16px;
 }
 .ringi-brief .brief-title {
@@ -326,7 +336,7 @@
   color: #878787;
 }
 .brief-footer > span:first-child {
-  font-family: var(--font-body);
+  font-family: var(--font-body), serif;
   font-size: 12px;
 }
 .ringi-thread {
@@ -519,7 +529,7 @@
   transition: opacity 0.5s var(--ease);
 }
 .stream-output > p {
-  font-family: var(--font-body);
+  font-family: var(--font-body), serif;
   font-size: 17px;
   line-height: 1.4;
   letter-spacing: -0.03em;

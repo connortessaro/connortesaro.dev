@@ -15,7 +15,7 @@ export default function WorkPage() {
     <main id="main">
       <div className="shell">
         <header className="route-intro">
-          <span className="eyebrow muted">Selected work / 01—03</span>
+          <span className="eyebrow muted">Selected work</span>
           <h1>Three systems for information that degrades in transit.</h1>
           <p>
             Ringi captures the disagreement a thread leaves implicit, Phantom

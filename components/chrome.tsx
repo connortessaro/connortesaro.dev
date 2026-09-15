@@ -33,7 +33,7 @@ export function Footer() {
           <p className="eyebrow muted">
             Open to engineering roles and collaboration
           </p>
-          <span className="eyebrow muted">Boston, MA · Northeastern 2028</span>
+          <span className="eyebrow muted">Boston. Northeastern, 2028.</span>
         </div>
         <a href={`mailto:${site.email}`} className={s.hello}>
           If you are building something
