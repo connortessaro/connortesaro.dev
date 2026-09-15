@@ -1,31 +1,63 @@
 'use client';
-import { useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import s from './home.module.css';
+
+const TILTABLE = '(pointer:fine) and (prefers-reduced-motion:no-preference)';
+
 export function Orbit() {
   const ref = useRef<HTMLDivElement>(null);
+  const frame = useRef(0);
+  const tiltable = useRef(false);
+
+  // Evaluated once and kept current by the listener, rather than constructing a
+  // MediaQueryList on every pointer event.
+  useEffect(() => {
+    const list = window.matchMedia(TILTABLE);
+    const sync = () => {
+      tiltable.current = list.matches;
+      if (!list.matches) {
+        ref.current?.style.setProperty('--rx', '0deg');
+        ref.current?.style.setProperty('--ry', '0deg');
+      }
+    };
+    sync();
+    list.addEventListener('change', sync);
+    return () => {
+      list.removeEventListener('change', sync);
+      cancelAnimationFrame(frame.current);
+    };
+  }, []);
+
+  // Coalesced to one frame: the handler reads layout, and a pointer can fire
+  // faster than the display refreshes.
+  const onPointerMove = useCallback((event: React.PointerEvent) => {
+    if (!tiltable.current) return;
+    const { clientX, clientY } = event;
+    const target = event.currentTarget;
+    if (frame.current) return;
+    frame.current = requestAnimationFrame(() => {
+      frame.current = 0;
+      const box = target.getBoundingClientRect();
+      ref.current?.style.setProperty(
+        '--rx',
+        `${(clientY - box.top - box.height / 2) / 35}deg`,
+      );
+      ref.current?.style.setProperty(
+        '--ry',
+        `${(clientX - box.left - box.width / 2) / 35}deg`,
+      );
+    });
+  }, []);
+
   return (
     <div
       ref={ref}
       className={s.orbit}
       aria-hidden="true"
-      onPointerMove={(event) => {
-        if (
-          !window.matchMedia(
-            '(pointer:fine) and (prefers-reduced-motion:no-preference)',
-          ).matches
-        )
-          return;
-        const box = event.currentTarget.getBoundingClientRect();
-        ref.current?.style.setProperty(
-          '--rx',
-          `${(event.clientY - box.top - box.height / 2) / 35}deg`,
-        );
-        ref.current?.style.setProperty(
-          '--ry',
-          `${(event.clientX - box.left - box.width / 2) / 35}deg`,
-        );
-      }}
+      onPointerMove={onPointerMove}
       onPointerLeave={() => {
+        cancelAnimationFrame(frame.current);
+        frame.current = 0;
         ref.current?.style.setProperty('--rx', '0deg');
         ref.current?.style.setProperty('--ry', '0deg');
       }}

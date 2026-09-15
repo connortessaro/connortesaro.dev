@@ -4,8 +4,10 @@
   width: 100%;
   z-index: 30;
   background: rgba(0, 0, 0, 0.72);
+  /* Unprefixed only. Authoring both lets the CSS minifier collapse the pair to
+     the -webkit- form alone, which Chrome does not support, and the header
+     ships with no blur at all. */
   backdrop-filter: saturate(180%) blur(16px);
-  -webkit-backdrop-filter: saturate(180%) blur(16px);
   border-bottom: 1px solid transparent;
   transition: border-color var(--medium) var(--ease);
 }
@@ -92,8 +94,8 @@
   font-size: clamp(26px, 3.4vw, 46px);
   line-height: 1.22;
   letter-spacing: -0.035em;
-  max-width: 24ch;
-  padding: 40px 120px 56px 0;
+  max-width: 26ch;
+  padding: 40px 0 56px;
   transition: color var(--medium) var(--ease);
 }
 .hello > span:first-child {
@@ -103,10 +105,11 @@
 .hello:hover > span:first-child {
   color: var(--ink);
 }
+/* Inline, so it trails the last word instead of floating at the far edge of a
+   block that is much wider than the text that wraps inside it. */
 .bigArrow {
-  position: absolute;
-  right: 0;
-  top: 40px;
+  display: inline-block;
+  margin-left: 0.24em;
   color: var(--accent);
   font-weight: 400;
   transition: transform var(--medium) var(--ease-out);
@@ -156,18 +159,11 @@
     flex-direction: column;
     gap: 12px;
   }
-  .hello {
-    padding-right: 60px;
-  }
   .bottom {
     flex-wrap: wrap;
   }
   .footer {
     padding-top: 52px;
-  }
-  .bigArrow {
-    font-size: 52px;
-    top: 32px;
   }
   .bottom > div {
     gap: 18px;
@@ -182,11 +178,7 @@
   }
   .hello {
     font-size: clamp(22px, 5.6vw, 28px);
-    padding: 32px 26px 44px 0;
-  }
-  .bigArrow {
-    font-size: 30px;
-    top: 28px;
+    padding: 32px 0 44px;
   }
   .bottom {
     gap: 20px;
@@ -196,5 +188,25 @@
   }
   .signature {
     width: 100%;
+  }
+}
+
+/* Finger-sized targets in the header and footer. The header bar is 64px, so
+   44px controls still fit inside it. */
+@media (pointer: coarse) {
+  .logo,
+  .bar nav a,
+  .contact {
+    min-height: 44px;
+  }
+  .bar nav a,
+  .contact {
+    padding-block: 11px;
+  }
+  .bottom a,
+  .signature {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 }
