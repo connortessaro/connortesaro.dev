@@ -87,11 +87,11 @@ export default function AboutPage() {
           </p>
           <dl className={s.aboutFacts} data-reveal="">
             <div>
-              <dt>BASED IN</dt>
+              <dt>Based in</dt>
               <dd>Boston, Massachusetts</dd>
             </div>
             <div>
-              <dt>EDUCATION</dt>
+              <dt>Education</dt>
               <dd>
                 Northeastern University
                 <br />
@@ -101,7 +101,7 @@ export default function AboutPage() {
               </dd>
             </div>
             <div>
-              <dt>CURRENTLY</dt>
+              <dt>Currently</dt>
               <dd>
                 Software Engineer Co-op at Chewy
                 <br />
@@ -109,7 +109,7 @@ export default function AboutPage() {
               </dd>
             </div>
             <div>
-              <dt>WORKING WITH</dt>
+              <dt>Working with</dt>
               <dd>
                 TypeScript, Python, SQL, React,
                 <br />

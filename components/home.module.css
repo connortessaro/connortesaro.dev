@@ -960,19 +960,6 @@
   }
 }
 
-/* A running head, not an eyebrow: sentence case, no tracked-out caps, sitting
-   on the section rule rather than floating above the heading as a label. */
-.runningHead {
-  display: block;
-  font-family: var(--font-mono), monospace;
-  font-variation-settings: normal;
-  font-size: 12px;
-  letter-spacing: 0.01em;
-  color: var(--faint);
-  align-self: start;
-  margin-top: 8px;
-}
-
 /* A running head, not a badge. What this replaced was the announcement-badge
    pattern with nothing to announce: it restated the job title that both the
    statement and the masthead below already carry, and wore a status dot

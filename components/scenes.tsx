@@ -327,7 +327,7 @@ export function ProjectChapter({
       <div className="chapter-sticky">
         <div className="chapter-copy">
           <div className="chapter-kicker">
-            <span className="running-head">{project.discipline}</span>
+            <span className="eyebrow">{project.discipline}</span>
             <span className="chapter-status">{project.status}</span>
           </div>
           <h2>

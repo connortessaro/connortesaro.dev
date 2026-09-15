@@ -13,12 +13,10 @@
   align-items: center;
   padding: 56px 0;
 }
-.running-head {
-  font-family: var(--font-mono), monospace;
-  font-variation-settings: normal;
-  font-size: 12px;
-  letter-spacing: 0.01em;
-  color: var(--accent);
+/* Inside the product scenes the labels are literally written in caps because
+   they depict other interfaces. Caps need their tracking back. */
+.project-art .eyebrow {
+  letter-spacing: 0.08em;
 }
 .chapter-kicker {
   display: flex;
@@ -826,6 +824,11 @@
   .chapter-sticky {
     gap: 4%;
     grid-template-columns: 0.9fr 1.1fr;
+  }
+  /* Inside the product scenes the labels are literally written in caps because
+   they depict other interfaces. Caps need their tracking back. */
+  .project-art .eyebrow {
+    letter-spacing: 0.08em;
   }
   .chapter-kicker {
     flex-wrap: wrap;

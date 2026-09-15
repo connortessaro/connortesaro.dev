@@ -83,7 +83,7 @@ export function Experiments() {
     >
       <div className={s.experimentHeading} data-reveal="mask">
         <div>
-          <span className={s.runningHead}>Exploratory work</span>
+          <span className="eyebrow muted">Exploratory work</span>
           <h2 id="experiments-heading">
             Smaller projects, built to answer a single question.
           </h2>
