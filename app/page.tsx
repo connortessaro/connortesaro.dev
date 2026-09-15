@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Orbit } from '@/components/orbit';
-import { ProjectChapter } from '@/components/scenes';
-import { ProjectIndex } from '@/components/project-index';
+import { ProjectRow } from '@/components/project-mark';
 import { Experiments, Experience } from '@/components/sections';
 import { projects } from '@/content/projects';
 import s from '@/components/home.module.css';
@@ -34,7 +33,6 @@ export default function HomePage() {
               </span>
             </span>
           </h1>
-          <ProjectIndex />
         </section>
       </div>
       <section
@@ -54,7 +52,7 @@ export default function HomePage() {
           </p>
         </div>
         {projects.map((project) => (
-          <ProjectChapter key={project.slug} project={project} />
+          <ProjectRow key={project.slug} project={project} />
         ))}
       </section>
       <Experience />
