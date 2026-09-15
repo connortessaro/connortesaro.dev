@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Experiments } from '@/components/sections';
 import s from '@/components/home.module.css';
 export const metadata: Metadata = {
   title: 'About',
@@ -128,7 +127,6 @@ export default function AboutPage() {
           </a>
         </article>
       </div>
-      <Experiments />
     </main>
   );
 }

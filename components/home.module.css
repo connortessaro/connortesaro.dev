@@ -88,9 +88,6 @@
 .heroStatement > *:nth-child(1) {
   animation-delay: 0.05s;
 }
-.heroStatement > *:nth-child(2) {
-  animation-delay: 0.15s;
-}
 .heroStatement > p {
   font-size: clamp(21px, 2.1vw, 30px);
   font-weight: 600;
@@ -101,13 +98,6 @@
 }
 .heroStatement > p > span {
   color: var(--muted);
-}
-.heroSmall {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-top: 20px;
-  max-width: 46ch;
 }
 .orbit {
   overflow: hidden;
@@ -734,10 +724,6 @@
   .heroStatement > p {
     font-size: 21px;
     margin-top: 18px;
-  }
-  .heroSmall {
-    font-size: 13px;
-    margin-top: 16px;
   }
   .orbit {
     position: absolute;
