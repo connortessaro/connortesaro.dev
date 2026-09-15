@@ -30,9 +30,6 @@ export function Footer() {
     <footer className={s.footer} id="contact">
       <div className="shell">
         <div className={s.top}>
-          <p className="eyebrow muted">
-            Open to engineering roles and collaboration
-          </p>
           <span className="eyebrow muted">Boston. Northeastern, 2028.</span>
         </div>
         <a href={`mailto:${site.email}`} className={s.hello}>

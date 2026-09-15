@@ -12,12 +12,12 @@ export default function HomePage() {
       <div className={s.heroWrap} data-animate-scope="">
         <div className={s.heroGrid} aria-hidden="true" data-cursor-grid="" />
         <section className={`shell ${s.hero}`} aria-labelledby="hero-name">
+          <div className={s.heroHead}>
+            <span>Boston, Massachusetts</span>
+            <span>Open to engineering roles and collaboration</span>
+          </div>
           <div className={s.heroTop}>
             <div className={s.heroStatement}>
-              <div className={s.availability}>
-                <span />
-                Software engineer, Northeastern University
-              </div>
               <p>
                 I build systems that reduce the administrative overhead{' '}
                 <span>between a team’s intent and its execution.</span>

@@ -91,38 +91,6 @@
 .heroStatement > *:nth-child(2) {
   animation-delay: 0.15s;
 }
-.heroStatement > *:nth-child(3) {
-  animation-delay: 0.25s;
-}
-.availability {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono), monospace;
-  font-size: 12px;
-  color: var(--muted);
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
-  border-radius: 100px;
-  padding: 5px 12px 5px 10px;
-}
-.availability > span {
-  width: 6px;
-  height: 6px;
-  background: #4ade80;
-  border-radius: 50%;
-  position: relative;
-}
-/* Scaled border rather than an animated box-shadow: same expanding ring, but
-   the loop runs on the compositor instead of repainting. */
-.availability > span::after {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border: 1px solid rgba(74, 222, 128, 0.55);
-  border-radius: 50%;
-  animation: pulse 2.4s var(--ease) infinite;
-}
 .heroStatement > p {
   font-size: clamp(21px, 2.1vw, 30px);
   font-weight: 600;
@@ -577,17 +545,6 @@
   margin: 0;
   line-height: 1.6;
 }
-@keyframes pulse {
-  0% {
-    transform: scale(0.5);
-    opacity: 0.9;
-  }
-  70%,
-  100% {
-    transform: scale(2.1);
-    opacity: 0;
-  }
-}
 @keyframes nameEnter {
   from {
     transform: translateY(24px);
@@ -801,9 +758,6 @@
     right: 8%;
     bottom: 1px;
   }
-  .availability {
-    font-size: 11px;
-  }
   .name {
     font-size: 15.5vw;
     letter-spacing: -0.004em;
@@ -891,8 +845,7 @@
 
 /* Hero loops idle off screen. Explicit selectors rather than a subtree
    wildcard, so toggling data-inview invalidates only these two elements. */
-.heroWrap:not([data-inview]) .name,
-.heroWrap:not([data-inview]) .availability > span::after {
+.heroWrap:not([data-inview]) .name {
   animation-play-state: paused;
 }
 
@@ -1018,4 +971,30 @@
   color: var(--faint);
   align-self: start;
   margin-top: 8px;
+}
+
+/* A running head, not a badge. What this replaced was the announcement-badge
+   pattern with nothing to announce: it restated the job title that both the
+   statement and the masthead below already carry, and wore a status dot
+   borrowed from uptime dashboards in Tailwind's green-400 — a colour used
+   nowhere else on this site. This carries the one fact that was otherwise
+   buried in the footer, where a reader reaches it last. */
+.heroHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line-strong);
+  font-family: var(--font-mono), monospace;
+  font-variation-settings: normal;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: var(--faint);
+  animation: riseIn 0.8s var(--ease-out) both;
+}
+@media (max-width: 480px) {
+  .heroHead {
+    flex-direction: column;
+    gap: 4px;
+  }
 }
