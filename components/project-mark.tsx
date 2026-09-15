@@ -17,143 +17,299 @@ import s from './project-mark.module.css';
 
 const TILTABLE = '(pointer:fine) and (prefers-reduced-motion:no-preference)';
 
-/** Ringi: a hanko. The seal is the decision, pressed once and kept. */
+/**
+ * The real marks, lifted from each project's own repo rather than invented.
+ * Ringi and Kizuki both document the hanko as their primary logo; Phantom's is
+ * the pixel ghost its app already ships. Colours are handed to the page via
+ * currentColor so each takes the accent it already had here.
+ *
+ * Kizuki's own seal file is a 100KB photographed paper stamp with a white
+ * background — a bright block on a black page — so it is rebuilt here from
+ * Ringi's vector, which its brand doc calls the same hierarchy.
+ */
+
+/** Ringi: the hanko. Its brand doc calls this the primary logo mark. */
 function RingiMark() {
   return (
     <>
       <span
         className={s.layer}
-        style={{ '--z': '-18px' } as React.CSSProperties}
+        style={{ '--z': '-20px' } as React.CSSProperties}
       >
-        <svg viewBox="0 0 120 120" aria-hidden="true">
-          <circle cx="60" cy="60" r="52" className={s.ghost} />
+        <svg viewBox="0 0 120 120" aria-hidden="true" className={s.echo}>
+          <defs>
+            <filter id="bleedRin" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.9"
+                numOctaves="2"
+                seed="7"
+                result="n"
+              />
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" />
+            </filter>
+            <filter id="grainRin">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.55"
+                numOctaves="2"
+                seed="11"
+                result="g"
+              />
+              <feColorMatrix
+                in="g"
+                type="matrix"
+                values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0"
+                result="holes"
+              />
+              <feComposite in="SourceGraphic" in2="holes" operator="out" />
+            </filter>
+          </defs>
+          <g transform="rotate(-4 60 60)" filter="url(#bleedRin)">
+            <g filter="url(#grainRin)">
+              <circle
+                cx="60"
+                cy="60"
+                r="50"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="7"
+              />
+              <text
+                x="60"
+                y="60"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontFamily="'Shippori Mincho','Hiragino Mincho ProN',serif"
+                fontSize="58"
+                fontWeight="700"
+                fill="currentColor"
+              >
+                稟
+              </text>
+            </g>
+          </g>
         </svg>
       </span>
-      <span className={s.layer} style={{ '--z': '0px' } as React.CSSProperties}>
+      <span
+        className={s.layer}
+        style={{ '--z': '18px' } as React.CSSProperties}
+      >
         <svg viewBox="0 0 120 120" aria-hidden="true">
-          <rect
-            x="10"
-            y="10"
-            width="100"
-            height="100"
-            rx="14"
-            className={s.ring}
+          <defs>
+            <filter id="bleedRin" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.9"
+                numOctaves="2"
+                seed="7"
+                result="n"
+              />
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" />
+            </filter>
+            <filter id="grainRin">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.55"
+                numOctaves="2"
+                seed="11"
+                result="g"
+              />
+              <feColorMatrix
+                in="g"
+                type="matrix"
+                values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0"
+                result="holes"
+              />
+              <feComposite in="SourceGraphic" in2="holes" operator="out" />
+            </filter>
+          </defs>
+          <g transform="rotate(-4 60 60)" filter="url(#bleedRin)">
+            <g filter="url(#grainRin)">
+              <circle
+                cx="60"
+                cy="60"
+                r="50"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="7"
+              />
+              <text
+                x="60"
+                y="60"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontFamily="'Shippori Mincho','Hiragino Mincho ProN',serif"
+                fontSize="58"
+                fontWeight="700"
+                fill="currentColor"
+              >
+                稟
+              </text>
+            </g>
+          </g>
+        </svg>
+      </span>
+    </>
+  );
+}
+
+/** Phantom: the pixel ghost from its own logo.svg. */
+function PhantomMark() {
+  return (
+    <>
+      <span
+        className={s.layer}
+        style={{ '--z': '-22px' } as React.CSSProperties}
+      >
+        <svg
+          viewBox="0 0 17 8"
+          aria-hidden="true"
+          className={`${s.echo} ${s.wide}`}
+        >
+          <path
+            fill="currentColor"
+            fillRule="evenodd"
+            d="M4 0h9v1h-9zM3 1h11v1h-11zM2 2h13v1h-13zM1 3h15v1h-15zM0 4h17v1h-17zM0 5h17v1h-17zM0 6h17v1h-17zM0 7h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM9 7h2v1h-2zM12 7h2v1h-2zM15 7h2v1h-2zM5 2h2v1h-2zM10 2h2v1h-2zM5 3h2v1h-2zM10 3h2v1h-2z"
           />
         </svg>
       </span>
       <span
         className={s.layer}
-        style={{ '--z': '14px' } as React.CSSProperties}
+        style={{ '--z': '20px' } as React.CSSProperties}
       >
-        <svg viewBox="0 0 120 120" aria-hidden="true">
-          <circle cx="60" cy="60" r="40" className={s.ringThin} />
-        </svg>
-      </span>
-      <span
-        className={`${s.layer} ${s.glyph}`}
-        style={{ '--z': '30px' } as React.CSSProperties}
-      >
-        稟
-      </span>
-    </>
-  );
-}
-
-/** Phantom: a metered stream, the tail of it receding out of the ledger. */
-function PhantomMark() {
-  const bars = [0, 1, 2, 3, 4, 5, 6];
-  return (
-    <>
-      {bars.map((i) => (
-        <span
-          key={i}
-          className={s.layer}
-          style={
-            {
-              '--z': `${28 - i * 9}px`,
-              opacity: 1 - i * 0.13,
-            } as React.CSSProperties
-          }
-        >
-          <svg viewBox="0 0 120 120" aria-hidden="true">
-            <rect
-              x={22 + i * 12}
-              y={60 - (34 - i * 3.4)}
-              width="7"
-              height={(34 - i * 3.4) * 2}
-              rx="3.5"
-              className={s.bar}
-            />
-          </svg>
-        </span>
-      ))}
-      <span
-        className={s.layer}
-        style={{ '--z': '30px' } as React.CSSProperties}
-      >
-        <svg viewBox="0 0 120 120" aria-hidden="true">
-          <path d="M14 98 H106" className={s.rule} />
+        <svg viewBox="0 0 17 8" aria-hidden="true" className={s.wide}>
+          <path
+            fill="currentColor"
+            fillRule="evenodd"
+            d="M4 0h9v1h-9zM3 1h11v1h-11zM2 2h13v1h-13zM1 3h15v1h-15zM0 4h17v1h-17zM0 5h17v1h-17zM0 6h17v1h-17zM0 7h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM9 7h2v1h-2zM12 7h2v1h-2zM15 7h2v1h-2zM5 2h2v1h-2zM10 2h2v1h-2zM5 3h2v1h-2zM10 3h2v1h-2z"
+          />
         </svg>
       </span>
     </>
   );
 }
 
-/** Kizuki: the stored record and the claim about it, and the gap between. */
+/** Kizuki: the 気 seal, its documented primary mark. */
 function KizukiMark() {
   return (
     <>
       <span
         className={s.layer}
-        style={{ '--z': '-16px' } as React.CSSProperties}
+        style={{ '--z': '-20px' } as React.CSSProperties}
       >
-        <svg viewBox="0 0 120 120" aria-hidden="true">
-          <rect
-            x="20"
-            y="26"
-            width="74"
-            height="62"
-            rx="8"
-            className={s.ghost}
-          />
-        </svg>
-      </span>
-      <span className={s.layer} style={{ '--z': '4px' } as React.CSSProperties}>
-        <svg viewBox="0 0 120 120" aria-hidden="true">
-          <rect
-            x="14"
-            y="20"
-            width="74"
-            height="62"
-            rx="8"
-            className={s.ring}
-          />
-          <path d="M26 38 H60 M26 50 H72 M26 62 H52" className={s.ruleFaint} />
+        <svg viewBox="0 0 120 120" aria-hidden="true" className={s.echo}>
+          <defs>
+            <filter id="bleedKi" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.9"
+                numOctaves="2"
+                seed="19"
+                result="n"
+              />
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" />
+            </filter>
+            <filter id="grainKi">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.55"
+                numOctaves="2"
+                seed="23"
+                result="g"
+              />
+              <feColorMatrix
+                in="g"
+                type="matrix"
+                values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0"
+                result="holes"
+              />
+              <feComposite in="SourceGraphic" in2="holes" operator="out" />
+            </filter>
+          </defs>
+          <g transform="rotate(3 60 60)" filter="url(#bleedKi)">
+            <g filter="url(#grainKi)">
+              <circle
+                cx="60"
+                cy="60"
+                r="50"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="7"
+              />
+              <text
+                x="60"
+                y="60"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontFamily="'Shippori Mincho','Hiragino Mincho ProN',serif"
+                fontSize="58"
+                fontWeight="700"
+                fill="currentColor"
+              >
+                気
+              </text>
+            </g>
+          </g>
         </svg>
       </span>
       <span
         className={s.layer}
-        style={{ '--z': '26px' } as React.CSSProperties}
+        style={{ '--z': '18px' } as React.CSSProperties}
       >
         <svg viewBox="0 0 120 120" aria-hidden="true">
-          <rect
-            x="34"
-            y="40"
-            width="74"
-            height="62"
-            rx="8"
-            className={s.ringThin}
-          />
-          <path d="M46 58 H92 M46 70 H80" className={s.ruleFaint} />
-        </svg>
-      </span>
-      {/* The discrepancy: one mark sitting exactly where the two disagree. */}
-      <span
-        className={s.layer}
-        style={{ '--z': '40px' } as React.CSSProperties}
-      >
-        <svg viewBox="0 0 120 120" aria-hidden="true">
-          <circle cx="88" cy="46" r="7" className={s.dot} />
+          <defs>
+            <filter id="bleedKi" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.9"
+                numOctaves="2"
+                seed="19"
+                result="n"
+              />
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" />
+            </filter>
+            <filter id="grainKi">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.55"
+                numOctaves="2"
+                seed="23"
+                result="g"
+              />
+              <feColorMatrix
+                in="g"
+                type="matrix"
+                values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0"
+                result="holes"
+              />
+              <feComposite in="SourceGraphic" in2="holes" operator="out" />
+            </filter>
+          </defs>
+          <g transform="rotate(3 60 60)" filter="url(#bleedKi)">
+            <g filter="url(#grainKi)">
+              <circle
+                cx="60"
+                cy="60"
+                r="50"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="7"
+              />
+              <text
+                x="60"
+                y="60"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontFamily="'Shippori Mincho','Hiragino Mincho ProN',serif"
+                fontSize="58"
+                fontWeight="700"
+                fill="currentColor"
+              >
+                気
+              </text>
+            </g>
+          </g>
         </svg>
       </span>
     </>
