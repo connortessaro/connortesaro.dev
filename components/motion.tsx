@@ -1,11 +1,29 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import { usePathname } from 'next/navigation';
 
 const PENDING = "[data-reveal]:not([data-reveal$='-shown'])";
 const REDUCED = '(prefers-reduced-motion: reduce)';
 const FINE_POINTER =
   '(pointer: fine) and (prefers-reduced-motion: no-preference)';
+
+/**
+ * A media query as reactive state, so switching the OS motion setting or
+ * plugging in a mouse re-runs the effects below instead of leaving them on
+ * whatever was true at mount.
+ */
+function useMediaQuery(query: string) {
+  return useSyncExternalStore(
+    (onChange) => {
+      const list = window.matchMedia(query);
+      list.addEventListener('change', onChange);
+      return () => list.removeEventListener('change', onChange);
+    },
+    () => window.matchMedia(query).matches,
+    // Server render assumes no preference; the client corrects on hydration.
+    () => false,
+  );
+}
 
 /** Ease matching --ease-out, for values JavaScript has to interpolate itself. */
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -31,6 +49,8 @@ function runCounter(el: HTMLElement) {
  */
 export function MotionRoot() {
   const pathname = usePathname();
+  const reduced = useMediaQuery(REDUCED);
+  const fine = useMediaQuery(FINE_POINTER);
 
   // Scroll reveals and counters, re-armed on every navigation.
   useEffect(() => {
@@ -39,7 +59,7 @@ export function MotionRoot() {
     const counters = () =>
       Array.from(document.querySelectorAll<HTMLElement>('[data-count-to]'));
 
-    if (window.matchMedia(REDUCED).matches) {
+    if (reduced) {
       targets().forEach((el) => {
         el.setAttribute('data-reveal', `${el.dataset.reveal || 'fade'}-shown`);
       });
@@ -78,42 +98,80 @@ export function MotionRoot() {
     });
 
     return () => observer.disconnect();
+  }, [pathname, reduced]);
+
+  // Infinite decorative loops keep the compositor and the main thread busy for
+  // as long as the page is open, including well past the section they belong
+  // to. Pausing them off screen costs one observer and saves the battery.
+  useEffect(() => {
+    const scopes = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-animate-scope]'),
+    );
+    if (!scopes.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          (entry.target as HTMLElement).toggleAttribute(
+            'data-inview',
+            entry.isIntersecting,
+          );
+        }
+      },
+      { rootMargin: '200px 0px' },
+    );
+    scopes.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, [pathname]);
 
   // Cursor tracking, scroll progress, and the magnetic call to action.
   useEffect(() => {
-    if (window.matchMedia(REDUCED).matches) return;
-    const fine = window.matchMedia(FINE_POINTER).matches;
+    if (reduced) return;
     const root = document.documentElement;
     let frame = 0;
+    let pointerFrame = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+    let spot: HTMLElement | null = null;
 
-    const onPointerMove = (event: PointerEvent) => {
-      if (!fine) return;
-      const spot = (event.target as Element | null)?.closest<HTMLElement>(
-        '.spotlight',
-      );
+    // Queried once per effect run rather than per pointer event. Both live in
+    // page chrome that outlives any single move.
+    const grid = document.querySelector<HTMLElement>('[data-cursor-grid]');
+    const magnets = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-magnetic]'),
+    );
+
+    const applyPointer = () => {
+      pointerFrame = 0;
       if (spot) {
         const box = spot.getBoundingClientRect();
-        spot.style.setProperty('--mx', `${event.clientX - box.left}px`);
-        spot.style.setProperty('--my', `${event.clientY - box.top}px`);
+        spot.style.setProperty('--mx', `${pointerX - box.left}px`);
+        spot.style.setProperty('--my', `${pointerY - box.top}px`);
       }
-      const grid = document.querySelector<HTMLElement>('[data-cursor-grid]');
       if (grid) {
         const box = grid.getBoundingClientRect();
-        grid.style.setProperty('--gx', `${event.clientX - box.left}px`);
-        grid.style.setProperty('--gy', `${event.clientY - box.top}px`);
+        grid.style.setProperty('--gx', `${pointerX - box.left}px`);
+        grid.style.setProperty('--gy', `${pointerY - box.top}px`);
       }
-      document
-        .querySelectorAll<HTMLElement>('[data-magnetic]')
-        .forEach((el) => {
-          const box = el.getBoundingClientRect();
-          const dx = event.clientX - (box.left + box.width / 2);
-          const dy = event.clientY - (box.top + box.height / 2);
-          const near =
-            Math.abs(dx) < box.width && Math.abs(dy) < box.height * 2.5;
-          el.style.setProperty('--tx', near ? `${dx * 0.18}px` : '0px');
-          el.style.setProperty('--ty', near ? `${dy * 0.18}px` : '0px');
-        });
+      for (const el of magnets) {
+        const box = el.getBoundingClientRect();
+        const dx = pointerX - (box.left + box.width / 2);
+        const dy = pointerY - (box.top + box.height / 2);
+        const near =
+          Math.abs(dx) < box.width && Math.abs(dy) < box.height * 2.5;
+        el.style.setProperty('--tx', near ? `${dx * 0.18}px` : '0px');
+        el.style.setProperty('--ty', near ? `${dy * 0.18}px` : '0px');
+      }
+    };
+
+    // Coalesced to one frame. A pointer can fire well above display rate, and
+    // every handler here reads layout.
+    const onPointerMove = (event: PointerEvent) => {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      spot = (event.target as Element | null)?.closest<HTMLElement>(
+        '.spotlight',
+      ) ?? null;
+      if (!pointerFrame) pointerFrame = requestAnimationFrame(applyPointer);
     };
 
     const onScroll = () => {
@@ -130,16 +188,20 @@ export function MotionRoot() {
     };
 
     onScroll();
-    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    // Scroll progress is not a pointer effect, so it runs on touch too.
+    if (fine) {
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+    }
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      if (pointerFrame) cancelAnimationFrame(pointerFrame);
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, []);
+  }, [reduced, fine]);
 
   return null;
 }

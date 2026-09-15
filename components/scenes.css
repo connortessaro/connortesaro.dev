@@ -25,6 +25,7 @@
   letter-spacing: 0.05em;
   color: var(--muted);
   white-space: nowrap;
+  position: relative;
 }
 .chapter-status::before {
   content: '';
@@ -35,6 +36,21 @@
   border-radius: 50%;
   margin-right: 7px;
   animation: statusPulse 2.4s var(--ease) infinite;
+}
+/* The expanding ring is a scaled border rather than an animated box-shadow, so
+   the loop stays on the compositor instead of repainting twice a second. */
+.chapter-status::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin-top: -4.5px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: statusRing 2.4s var(--ease) infinite;
 }
 .chapter-copy h2 {
   font-size: clamp(44px, 4.8vw, 72px);
@@ -230,11 +246,14 @@
   font-family: var(--font-body);
   font-size: 16px;
 }
-.ringi-brief h4 {
+.ringi-brief .brief-title {
   font-size: 26px;
   line-height: 1.1;
   letter-spacing: -0.04em;
   font-weight: 600;
+  /* Was an h4; now a p, so it also matches `.ringi-brief > p`. State the
+     colour rather than inheriting that rule's muted grey. */
+  color: #ededed;
   margin: 18px 0;
 }
 .brief-rule {
@@ -343,10 +362,12 @@
   flex-shrink: 0;
   display: grid;
   place-content: center;
-  background: #3a1f2a;
-  color: #ff8fa6;
   border-radius: 6px;
   font-size: 9px;
+}
+.avatar.red {
+  background: #3a1f2a;
+  color: #ff8fa6;
 }
 .avatar.blue {
   background: #10263a;
@@ -594,6 +615,12 @@
 .art-phantom[data-step='2'] .phantom-terminal {
   transform: rotate(-5deg) translate(-8px, -20px);
 }
+/* The receipt lands over the streaming output at this step and cuts the line
+   behind it mid-word. Recede the text it covers so the overlap reads as depth
+   rather than as a clipping bug. */
+.art-phantom[data-step='2'] .stream-output {
+  opacity: 0.32;
+}
 .vault-card {
   position: absolute;
   top: 18%;
@@ -625,10 +652,11 @@
   color: #f5a623;
   margin-top: 14px;
 }
-.vault-card h4 {
+.vault-card .vault-title {
   font-size: 25px;
   font-weight: 600;
   letter-spacing: -0.04em;
+  color: #ededed;
   margin: 17px 0;
 }
 .draft-label {
@@ -913,7 +941,7 @@
     padding: 16px;
     top: 15%;
   }
-  .ringi-brief h4 {
+  .ringi-brief .brief-title {
     font-size: 22px;
     margin: 13px 0;
   }
@@ -1002,7 +1030,7 @@
     top: 16%;
     padding: 17px;
   }
-  .vault-card h4 {
+  .vault-card .vault-title {
     font-size: 22px;
     margin: 15px 0;
   }
@@ -1089,11 +1117,47 @@
 @keyframes statusPulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 var(--accent);
     opacity: 1;
   }
   50% {
-    box-shadow: 0 0 0 4px transparent;
     opacity: 0.55;
   }
+}
+@keyframes statusRing {
+  0% {
+    transform: scale(0.4);
+    opacity: 0.9;
+  }
+  70%,
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Below 900px the scroll-driven sequence is off and these buttons are the only
+   way to drive the demos, so they are the controls that most need a finger-
+   sized target. */
+@media (pointer: coarse) {
+  .step-buttons button {
+    min-height: 44px;
+    padding-block: 12px;
+  }
+  .replay {
+    min-height: 44px;
+    padding-block: 12px;
+  }
+  .scenario-toggle {
+    min-height: 44px;
+    padding: 12px 14px;
+  }
+}
+
+/* Chapter loops idle off screen. See the note in globals.css: these are listed
+   individually because a subtree wildcard costs measurable style recalc. */
+.project-chapter:not([data-inview]) .chapter-status::before,
+.project-chapter:not([data-inview]) .chapter-status::after,
+.project-chapter:not([data-inview]) .terminal-caret,
+.project-chapter:not([data-inview]) .signal-bars i {
+  animation-play-state: paused;
 }

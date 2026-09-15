@@ -41,10 +41,10 @@ function RingiScene() {
           <span>稟議書</span>
           <span>DECISION DOCUMENT / 001</span>
         </div>
-        <h4>
+        <p className="brief-title">
           The release.
           <br />A way forward.
-        </h4>
+        </p>
         <div className="brief-rule" />
         <span className="brief-label">THE CRUX</span>
         <p>
@@ -208,7 +208,7 @@ function KizukiScene() {
           <span>LOCAL VAULT</span>
         </div>
         <div className="vault-file">projects / release.md</div>
-        <h4>Before you send.</h4>
+        <p className="vault-title">Before you send.</p>
         <p className="draft-label">YOUR DRAFT</p>
         <p className="draft-text">
           “Everything is on track
@@ -231,7 +231,6 @@ function KizukiScene() {
           <span>You decide what to send ↗</span>
         </div>
       </div>
-      <div className="source-connector" />
       <span className="art-tag">EVERY CLAIM CARRIES ITS SOURCE</span>
     </div>
   );
@@ -321,6 +320,7 @@ export function ProjectChapter({
       ref={root}
       className={`project-chapter ${standalone ? 'standalone' : ''}`}
       id={standalone ? 'demo' : project.slug}
+      data-animate-scope=""
       style={{ '--accent': project.accent } as React.CSSProperties}
       aria-label={`${project.name} ${standalone ? 'interactive demonstration' : 'showcase'}`}
     >

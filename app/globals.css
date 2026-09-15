@@ -46,6 +46,8 @@ body {
   font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  /* No double-tap zoom delay on controls. */
+  touch-action: manipulation;
 }
 ::selection {
   background: var(--accent-solid);
@@ -256,7 +258,8 @@ a:hover .arrow {
     opacity 0.7s var(--ease-out) var(--reveal-delay),
     transform 0.7s var(--ease-out) var(--reveal-delay),
     filter 0.7s var(--ease-out) var(--reveal-delay),
-    clip-path 0.9s var(--ease-out) var(--reveal-delay);
+    -webkit-mask-size 0.9s var(--ease-out) var(--reveal-delay),
+    mask-size 0.9s var(--ease-out) var(--reveal-delay);
 }
 [data-reveal=''],
 [data-reveal='fade'] {
@@ -271,14 +274,33 @@ a:hover .arrow {
   filter: none;
 }
 
-/* Wipe reveal for headings. Works with any inner markup, unlike line splitting. */
+/* Wipe reveal for headings. Works with any inner markup, unlike line splitting.
+   The wipe is a mask rather than a clip-path on purpose: IntersectionObserver
+   measures the clipped box, so a clip-path hidden state reports zero
+   intersection and the observer that is supposed to reveal it never fires. A
+   mask is paint-only, so the element keeps its geometry while it is hidden. */
 [data-reveal='mask'] {
-  clip-path: inset(0 0 110% 0);
-  will-change: clip-path;
+  -webkit-mask-image: linear-gradient(180deg, #000, #000);
+  mask-image: linear-gradient(180deg, #000, #000);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 0%;
+  mask-size: 100% 0%;
+  will-change: mask-size;
 }
 [data-reveal='mask-shown'] {
-  clip-path: inset(-30% 0 -30% 0);
+  -webkit-mask-size: 100% 130%;
+  mask-size: 100% 130%;
 }
+
+/* Decorative loops idle while their section is off screen. MotionRoot observes
+   [data-animate-scope] and sets data-inview; the attribute is absent until the
+   observer has reported, so the page starts paused and nothing animates behind
+   the fold. The pause rules themselves live next to the animations they stop,
+   in home.module.css and scenes.css — a blanket
+   `[data-animate-scope]:not([data-inview]) *` reads better but makes every
+   toggle invalidate style for the whole subtree, which measured as a ~5fps
+   loss while scrolling the project chapters. */
 
 /* Reading-progress rail under the header. */
 .progress {
@@ -355,38 +377,6 @@ a:hover .arrow {
   .shell {
     width: calc(100% - 48px);
   }
-  .tech-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-  }
-  .tech-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-mono), monospace;
-    font-size: 11px;
-    color: var(--muted);
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-sm);
-    padding: 4px 8px;
-    white-space: nowrap;
-    transition:
-      color var(--fast) var(--ease),
-      border-color var(--fast) var(--ease);
-  }
-  .tech-pill svg {
-    width: 12px;
-    height: 12px;
-    fill: currentColor;
-    flex-shrink: 0;
-  }
-  .tech-pill:hover,
-  .spotlight:hover .tech-pill {
-    color: var(--ink);
-    border-color: var(--line-hover);
-  }
   .route-intro {
     padding: 88px 0 48px;
   }
@@ -406,15 +396,18 @@ a:hover .arrow {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    /* Cancel outright rather than clamping the duration. A clamped infinite
+       loop still runs, it just snaps to its end frame, which leaves looping
+       decorations parked in a pose they were never designed to rest in. */
+    animation: none !important;
     transition-duration: 0.01ms !important;
   }
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
-    clip-path: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
   }
   .progress {
     display: none;
@@ -430,4 +423,18 @@ a:hover .arrow {
   height: 1px;
   overflow: hidden;
   padding: 0;
+}
+
+/* Touch targets. A finger needs roughly 44px; these controls are sized for a
+   cursor. Padding grows rather than type size, so nothing about the visual
+   scale changes — and it is scoped to coarse pointers so the desktop layout,
+   where these sit inside tight inline rows, is untouched. */
+@media (pointer: coarse) {
+  .line-link,
+  .text-link {
+    padding-block: 12px;
+  }
+  .tech-pill {
+    padding-block: 10px;
+  }
 }

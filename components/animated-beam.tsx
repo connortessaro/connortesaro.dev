@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion, useInView, useReducedMotion } from 'motion/react';
 
 type AnimatedBeamProps = {
   containerRef: RefObject<HTMLElement | null>;
@@ -61,6 +61,9 @@ export function AnimatedBeam({
 }: AnimatedBeamProps) {
   const id = useId();
   const reduced = useReducedMotion();
+  // The gradient loop repeats forever. Without this it keeps ticking after the
+  // Phantom chapter has scrolled away, for the rest of the session.
+  const inView = useInView(containerRef, { margin: '200px 0px' });
   const [path, setPath] = useState('');
   const [size, setSize] = useState({ width: 0, height: 0 });
   const frame = useRef(0);
@@ -115,7 +118,7 @@ export function AnimatedBeam({
         strokeOpacity={pathOpacity}
         strokeLinecap="round"
       />
-      {!reduced && (
+      {!reduced && inView && (
         <>
           <path
             d={path}

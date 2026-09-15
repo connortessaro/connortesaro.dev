@@ -38,9 +38,11 @@ export function Footer() {
         <a href={`mailto:${site.email}`} className={s.hello}>
           If you are building something
           <br />
-          <span>in this territory, I would like to hear about it.</span>
-          <span className={s.bigArrow} aria-hidden="true">
-            ↗
+          <span>
+            in this territory, I would like to hear about it.
+            <span className={s.bigArrow} aria-hidden="true">
+              ↗
+            </span>
           </span>
         </a>
         <div className={s.bottom}>

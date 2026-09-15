@@ -93,6 +93,16 @@
   height: 6px;
   background: #4ade80;
   border-radius: 50%;
+  position: relative;
+}
+/* Scaled border rather than an animated box-shadow: same expanding ring, but
+   the loop runs on the compositor instead of repainting. */
+.availability > span::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid rgba(74, 222, 128, 0.55);
+  border-radius: 50%;
   animation: pulse 2.4s var(--ease) infinite;
 }
 .heroStatement > p {
@@ -349,6 +359,16 @@
   padding-top: 104px;
   padding-bottom: 104px;
 }
+/* The left column is a short label plus a mark against a tall column of prose.
+   Anchoring the mark to the bottom spans the pair instead of leaving the void
+   under it. */
+.aboutPreview > div:first-child {
+  display: flex;
+  flex-direction: column;
+}
+.aboutPreview > div:first-child .aboutMark {
+  margin-top: auto;
+}
 .aboutPreview h2 {
   font-size: clamp(25px, 2.7vw, 36px);
   letter-spacing: -0.035em;
@@ -394,6 +414,9 @@
   line-height: 1.8;
   letter-spacing: 0.05em;
   color: var(--faint);
+  /* The gradient mark above sets a transparent fill, and fill colour inherits.
+     Without this the coordinates paint as nothing. */
+  -webkit-text-fill-color: currentColor;
   margin: 24px 0 0 4px;
 }
 .experiments {
@@ -565,12 +588,14 @@
   line-height: 1.6;
 }
 @keyframes pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5);
+  0% {
+    transform: scale(0.5);
+    opacity: 0.9;
   }
-  50% {
-    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0);
+  70%,
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
   }
 }
 @keyframes nameEnter {
@@ -777,10 +802,15 @@
     position: absolute;
     width: 64%;
     height: 230px;
-    right: -16px;
+    /* Flush right: at -16px the outer node labels fall outside .heroWrap's
+       overflow clip and lose their last characters. */
+    right: 0;
     bottom: -4px;
     z-index: 0;
     margin: 0;
+    /* It sits behind the running copy at this width, where its linework is
+       dense enough to compete with the text. Dimmed, it reads as texture. */
+    opacity: 0.32;
   }
   .orbitNote {
     font-size: 8px;
@@ -874,4 +904,20 @@
   .aboutPage > p {
     font-size: 15px;
   }
+}
+
+@media (pointer: coarse) {
+  .scrollLink,
+  .prLinks a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* Hero loops idle off screen. Explicit selectors rather than a subtree
+   wildcard, so toggling data-inview invalidates only these two elements. */
+.heroWrap:not([data-inview]) .name,
+.heroWrap:not([data-inview]) .availability > span::after {
+  animation-play-state: paused;
 }

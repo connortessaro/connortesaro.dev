@@ -46,7 +46,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
         <noscript>
-          <style>{`[data-reveal]{opacity:1;transform:none;filter:none;clip-path:none}`}</style>
+          <style>{`[data-reveal]{opacity:1;transform:none;filter:none;-webkit-mask-image:none;mask-image:none}`}</style>
         </noscript>
         <a href="#main" className="skip">
           Skip to content

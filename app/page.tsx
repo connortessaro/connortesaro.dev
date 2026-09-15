@@ -8,7 +8,7 @@ import s from '@/components/home.module.css';
 export default function HomePage() {
   return (
     <main id="main">
-      <div className={s.heroWrap}>
+      <div className={s.heroWrap} data-animate-scope="">
         <div className={s.heroGrid} aria-hidden="true" data-cursor-grid="" />
         <section className={`shell ${s.hero}`} aria-labelledby="hero-name">
           <div className={s.heroTop}>
