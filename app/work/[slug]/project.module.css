@@ -1,6 +1,15 @@
 .hero {
   padding: 112px 0 48px;
 }
+.heroLead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 7%;
+  align-items: center;
+}
+.heroMascot {
+  width: 100%;
+}
 .titleRow {
   display: flex;
   justify-content: space-between;
@@ -133,6 +142,10 @@
   .hero {
     padding-top: 88px;
   }
+  .heroLead {
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: 24px;
+  }
   .details {
     grid-template-columns: 1fr 1fr;
     gap: 24px;
@@ -164,6 +177,13 @@
   }
 }
 @media (max-width: 480px) {
+  .heroLead {
+    grid-template-columns: 1fr;
+  }
+  .heroMascot {
+    width: min(78vw, 300px);
+    margin: -20px auto -8px;
+  }
   .titleRow {
     margin-top: 28px;
     flex-wrap: wrap;

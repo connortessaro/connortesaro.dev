@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { projects } from '@/content/projects';
-import { ProjectArt } from '@/components/scenes';
+import { ProjectMascot } from '@/components/project-mascot';
 import s from '@/components/home.module.css';
 export const metadata: Metadata = {
   title: 'Selected work',
@@ -25,7 +25,16 @@ export default function WorkPage() {
               className={`${s.workEntry} spotlight`}
               data-reveal=""
             >
-              <ProjectArt slug={p.slug} />
+              <div
+                className={s.workVisual}
+                style={{ '--accent': p.accent } as React.CSSProperties}
+              >
+                <ProjectMascot
+                  slug={p.slug}
+                  sizes="(max-width: 899px) calc(100vw - 80px), 540px"
+                  preload={p.slug === 'ringi'}
+                />
+              </div>
               <div>
                 <span className="eyebrow" style={{ color: p.accent }}>
                   {p.discipline}

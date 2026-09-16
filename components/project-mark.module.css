@@ -1,6 +1,5 @@
-/* Layered planes under preserve-3d. Every layer is composited, so rotating the
-   whole stack is a transform and nothing repaints. The drift is slow and small
-   — it exists to show the mark has depth, not to be watched. */
+/* The generated mascot stays on one composited plane. The slow drift makes the
+   physical render feel dimensional without repainting it. */
 .mark {
   display: block;
   width: 100%;
@@ -24,43 +23,8 @@
   animation-play-state: paused;
 }
 
-.layer {
-  position: absolute;
-  inset: 0;
-  transform: translateZ(var(--z, 0px));
-  transform-style: preserve-3d;
-}
-.layer svg {
-  width: 100%;
+.mascot {
   height: 100%;
-  overflow: visible;
-  color: var(--accent);
-}
-/* The plane behind: the same mark, further back and nearly gone. It is what
-   makes the tilt read as depth rather than as a shape wobbling. */
-.echo {
-  opacity: 0.22;
-  filter: blur(1px);
-}
-/* The ghost is 17x8, not square like the seals. */
-.wide {
-  align-self: center;
-}
-.layer:has(> .wide) {
-  display: grid;
-  place-items: center;
-}
-
-.ring,
-.ringThin,
-.ghost,
-.rule,
-
-/* The plane behind: the same form, one step further back and nearly gone. */
-
-.ruleFaint {
-  stroke: var(--line-hover);
-  stroke-width: 1.5;
 }
 
 @keyframes markDrift {
@@ -82,7 +46,7 @@
 
 @media (max-width: 899px) {
   .mark {
-    max-width: 150px;
+    max-width: 180px;
   }
 }
 

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { projects, site } from '@/content/projects';
+import { ProjectMascot } from '@/components/project-mascot';
 import { ProjectChapter } from '@/components/scenes';
 import { TechList } from '@/components/tech';
 import Ringi from '@/content/ringi.mdx';
@@ -61,11 +62,21 @@ export default async function ProjectPage({
         <Link href="/work" className="eyebrow muted">
           ← Selected work
         </Link>
-        <div className={s.titleRow}>
-          <h1>{p.name}</h1>
-          <span className="pill">{p.status}</span>
+        <div className={s.heroLead}>
+          <div>
+            <div className={s.titleRow}>
+              <h1>{p.name}</h1>
+              <span className="pill">{p.status}</span>
+            </div>
+            <p className={s.headline}>{p.headline}</p>
+          </div>
+          <ProjectMascot
+            slug={p.slug}
+            className={s.heroMascot}
+            sizes="(max-width: 899px) 280px, 360px"
+            preload
+          />
         </div>
-        <p className={s.headline}>{p.headline}</p>
         <div className={`${s.details} spotlight`} data-reveal="">
           <div>
             <span>My contribution</span>

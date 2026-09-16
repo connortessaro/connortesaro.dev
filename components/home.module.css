@@ -476,9 +476,23 @@
 .workEntry:hover {
   border-color: var(--line-hover);
 }
-.workEntry :global(.project-art) {
+.workVisual {
   height: 400px;
   border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      color-mix(in srgb, var(--accent) 10%, transparent),
+      transparent 54%
+    ),
+    #090909;
+  border: 1px solid var(--line);
+}
+.workVisual > span {
+  width: min(92%, 400px);
 }
 .workEntry h2 {
   font-size: clamp(30px, 3vw, 38px);
@@ -707,7 +721,7 @@
     font-size: 28px;
     margin: 12px 0;
   }
-  .workEntry :global(.project-art) {
+  .workVisual {
     height: 440px;
   }
   .aboutPage > p {
@@ -810,7 +824,7 @@
   .workEntry {
     padding: 16px;
   }
-  .workEntry :global(.project-art) {
+  .workVisual {
     height: 420px;
   }
   .aboutFacts {

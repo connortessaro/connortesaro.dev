@@ -147,6 +147,9 @@ test('resume, metadata assets, not found, and navigation destinations work', asy
     '/robots.txt',
     '/icon.svg',
     '/images/listening-score.png',
+    '/images/projects/ringi-mascot.webp',
+    '/images/projects/phantom-mascot.webp',
+    '/images/projects/kizuki-mascot.webp',
   ]) {
     const r = await request.get(asset);
     expect(r.status(), asset).toBe(200);
